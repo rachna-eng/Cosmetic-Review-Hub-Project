@@ -65,9 +65,100 @@ async function main() {
   );
 
   await products.remove(second._id);
+
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+
+  await users.createUser(
+    "rachshah2",
+    "public/uploads/noImg.jpg",
+    "Rachna",
+    "Shah",
+    "shopping",
+    "rachshah@gmail.com",
+    "Intermediate"
+  );
+
+  await users.createUser(
+    "nevil1",
+    "public/uploads/noImg.jpg",
+    "Nevil",
+    "Ghelani",
+    "Macbooklover",
+    "nghelani@gmail.com",
+    "Basic"
+  );
+  await users.createUser(
+    "Lisa",
+    "public/uploads/noImg.jpg",
+    "Lisa",
+    "Andrew",
+    "mylifelove",
+    "l_andrew@gmail.com",
+    "Advanced"
+  );
+
   console.log("Done seeding database");
 
   await db.serverConfig.close();
 }
-
 main();

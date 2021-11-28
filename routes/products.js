@@ -15,9 +15,9 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const productList = await productData.getAllProducts();
-    res.render("products", { products: productList });
+    res.render("products", { products: productList, user: req.session.user });
   } catch (e) {
-    res.status(404).send({ error: e });
+    res.status(404).send({ error: e, user: req.session.user });
   }
 });
 

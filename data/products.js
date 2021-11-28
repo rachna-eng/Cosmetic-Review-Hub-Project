@@ -110,7 +110,7 @@ async function updateProduct(
   const prod = await getProductById(id);
   const updateProd = {
     productName: productName.trim(),
-    productPicture: "public/uploads/noImg.jpg",
+    productPicture: productPicture.trim(),
     productLinks: productLinks,
     brand: brand.trim(),
     price: price,
