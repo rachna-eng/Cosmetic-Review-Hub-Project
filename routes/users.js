@@ -12,6 +12,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/wishlist/:prodId", async (req, res) => {
+  try {
+    await userData.addToWishList(
+      req.session.user._id.toString(),
+      req.params.prodId
+    );
+    return res.json("Success");
+  } catch (e) {
+    return res.status(404).send({ error: e });
+  }
+});
+
 router.post("/profile", async (req, res) => {
   const {
     userName,

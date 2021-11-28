@@ -12,6 +12,10 @@ const constructorMethod = (app) => {
     return res.render("index", { user: req.session.user });
   });
 
+  app.get("/logout", (req, res) => {
+    req.session.destroy();
+    return res.redirect("/");
+  });
   app.get("/login", (req, res) => {
     return res.render("login", { user: req.session.user });
   });

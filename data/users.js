@@ -192,6 +192,18 @@ async function remove(id) {
   return `${delUser._id}`;
 }
 
+async function addToWishList(userId, prodId) {
+  const userCollection = await users();
+  userId = ObjectId(userId);
+  const updatedInfo = await userCollection.updateOne(
+    { _id: userId },
+    { $push: { wishList: prodId } }
+  );
+  if (updatedInfo.modifiedCount === 0) {
+    throw "Could not add to wishlist";
+  }
+}
+
 module.exports = {
   getUsers,
   getUserById,
@@ -199,4 +211,5 @@ module.exports = {
   updateUser,
   remove,
   login,
+  addToWishList,
 };
