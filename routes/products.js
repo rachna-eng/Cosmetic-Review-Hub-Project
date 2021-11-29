@@ -6,7 +6,7 @@ const productData = data.products;
 router.get("/:id", async (req, res) => {
   try {
     const product = await productData.getProductById(req.params.id);
-    res.render("single", { product: product });
+    res.render("single", { product: product, user: req.session.user });
   } catch (e) {
     res.status(404).json({ error: "Product not found" });
   }

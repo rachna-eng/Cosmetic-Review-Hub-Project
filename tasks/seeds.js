@@ -10,7 +10,7 @@ async function main() {
 
   const first = await products.createProduct(
     "Highliner Liquid Gel Eyeliner",
-    "public/uploads/highliner.jpg",
+    "/public/uploads/highliner.jpg",
     [
       "https://www.sephora.com/product/highliner-liquid-gel-eyeliner-P451610?skuId=2281087",
     ],
@@ -21,7 +21,7 @@ async function main() {
 
   await products.createProduct(
     "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
+    "/public/uploads/24-7.jpg",
     [
       "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
     ],
@@ -32,7 +32,7 @@ async function main() {
 
   const second = await products.createProduct(
     "Highliner Liquid Gel Eyeliner",
-    "public/uploads/highliner.jpg",
+    "/public/uploads/highliner.jpg",
     [
       "https://www.sephora.com/product/highliner-liquid-gel-eyeliner-P451610?skuId=2281087",
     ],
@@ -43,7 +43,7 @@ async function main() {
 
   await products.createProduct(
     "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
+    "/public/uploads/24-7.jpg",
     [
       "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
     ],
@@ -52,23 +52,23 @@ async function main() {
     "Eye-makeup"
   );
 
-  await products.updateProduct(
-    first._id,
-    "Highliner Liquid Gel Eyeliner",
-    "public/uploads/noImg.jpg",
-    [
-      "https://www.sephora.com/product/highliner-liquid-gel-eyeliner-P451610?skuId=2281087",
-    ],
-    "Marc Jacobs Beauty",
-    14,
-    "Eye"
-  );
+  // await products.updateProduct(
+  //   first._id,
+  //   "Highliner Liquid Gel Eyeliner",
+  //   "/public/uploads/highliner.jpg",
+  //   [
+  //     "https://www.sephora.com/product/highliner-liquid-gel-eyeliner-P451610?skuId=2281087",
+  //   ],
+  //   "Marc Jacobs Beauty",
+  //   14,
+  //   "Eye"
+  // );
 
-  await products.remove(second._id);
+  // await products.remove(second._id);
 
   await products.createProduct(
     "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
+    "/public/uploads/24-7.jpg",
     [
       "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
     ],
@@ -78,27 +78,7 @@ async function main() {
   );
   await products.createProduct(
     "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
-    [
-      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
-    ],
-    "Urban Decay",
-    22.0,
-    "Eye-makeup"
-  );
-  await products.createProduct(
-    "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
-    [
-      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
-    ],
-    "Urban Decay",
-    22.0,
-    "Eye-makeup"
-  );
-  await products.createProduct(
-    "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
+    "/public/uploads/24-7.jpg",
     [
       "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
     ],
@@ -109,7 +89,7 @@ async function main() {
 
   await products.createProduct(
     "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
+    "/public/uploads/24-7.jpg",
     [
       "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
     ],
@@ -119,7 +99,49 @@ async function main() {
   );
   await products.createProduct(
     "24/7 Glide-On Waterproof Eyeliner Pencil",
-    "public/uploads/24-7.jpg",
+    "/public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "/public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "/public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "/public/uploads/24-7.jpg",
+    [
+      "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
+    ],
+    "Urban Decay",
+    22.0,
+    "Eye-makeup"
+  );
+
+  await products.createProduct(
+    "24/7 Glide-On Waterproof Eyeliner Pencil",
+    "/public/uploads/24-7.jpg",
     [
       "https://www.sephora.com/product/24-7-glide-on-eye-pencil-P133707?skuId=1393693",
     ],
@@ -130,7 +152,7 @@ async function main() {
 
   await users.createUser(
     "rachshah2",
-    "public/uploads/noImg.jpg",
+    "/public/uploads/profile.jpg",
     "Rachna",
     "Shah",
     "shopping",
@@ -139,8 +161,8 @@ async function main() {
   );
 
   await users.createUser(
-    "nevil1",
-    "public/uploads/noImg.jpg",
+    "nevil123",
+    "/public/uploads/profile.jpg",
     "Nevil",
     "Ghelani",
     "Macbooklover",
@@ -148,8 +170,8 @@ async function main() {
     "Basic"
   );
   await users.createUser(
-    "Lisa",
-    "public/uploads/noImg.jpg",
+    "Lisaand1",
+    "/public/uploads/noImg.jpg",
     "Lisa",
     "Andrew",
     "mylifelove",

@@ -92,6 +92,7 @@ async function createUser(
     password: hash,
     email: email.trim(),
     makeupLevel: makeupLevel.trim(),
+    wishList: [],
   };
 
   const insertInfo = await userCollection.insertOne(newUser);
@@ -194,13 +195,22 @@ async function remove(id) {
 
 async function addToWishList(userId, prodId) {
   const userCollection = await users();
+  const user = await getUserById(userId);
+  let flag = false;
+  user.wishList.forEach((e) => {
+    if (e == prodId) {
+      flag = true;
+    }
+  });
   userId = ObjectId(userId);
-  const updatedInfo = await userCollection.updateOne(
-    { _id: userId },
-    { $push: { wishList: prodId } }
-  );
-  if (updatedInfo.modifiedCount === 0) {
-    throw "Could not add to wishlist";
+  if (!flag) {
+    const updatedInfo = await userCollection.updateOne(
+      { _id: userId },
+      { $push: { wishList: prodId } }
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Could not add to wishlist";
+    }
   }
 }
 

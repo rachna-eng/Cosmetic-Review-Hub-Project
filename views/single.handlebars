@@ -7,36 +7,75 @@
             <ul id="etalage">
               <li>
                 <a href="optionallink.html">
-                  <img class="etalage_thumb_image" src="/public/images/3.jpg" />
+                  <img
+                    class="etalage_thumb_image"
+                    src="{{product.productPicture}}"
+                  />
                   <img
                     class="etalage_source_image"
-                    src="/public/images/3.jpg"
+                    src="{{product.productPicture}}"
                   />
                 </a>
               </li>
               <li>
-                <img class="etalage_thumb_image" src="/public/images/4.jpg" />
-                <img class="etalage_source_image" src="/public/images/4.jpg" />
+                <img
+                  class="etalage_thumb_image"
+                  src="{{product.productPicture}}"
+                />
+                <img
+                  class="etalage_source_image"
+                  src="{{product.productPicture}}"
+                />
               </li>
               <li>
-                <img class="etalage_thumb_image" src="/public/images/5.jpg" />
-                <img class="etalage_source_image" src="/public/images/5.jpg" />
+                <img
+                  class="etalage_thumb_image"
+                  src="{{product.productPicture}}"
+                />
+                <img
+                  class="etalage_source_image"
+                  src="{{product.productPicture}}"
+                />
               </li>
               <li>
-                <img class="etalage_thumb_image" src="/public/images/6.jpg" />
-                <img class="etalage_source_image" src="/public/images/6.jpg" />
+                <img
+                  class="etalage_thumb_image"
+                  src="{{product.productPicture}}"
+                />
+                <img
+                  class="etalage_source_image"
+                  src="{{product.productPicture}}"
+                />
               </li>
               <li>
-                <img class="etalage_thumb_image" src="/public/images/7.jpg" />
-                <img class="etalage_source_image" src="/public/images/7.jpg" />
+                <img
+                  class="etalage_thumb_image"
+                  src="{{product.productPicture}}"
+                />
+                <img
+                  class="etalage_source_image"
+                  src="{{product.productPicture}}"
+                />
               </li>
               <li>
-                <img class="etalage_thumb_image" src="/public/images/8.jpg" />
-                <img class="etalage_source_image" src="/public/images/8.jpg" />
+                <img
+                  class="etalage_thumb_image"
+                  src="{{product.productPicture}}"
+                />
+                <img
+                  class="etalage_source_image"
+                  src="{{product.productPicture}}"
+                />
               </li>
               <li>
-                <img class="etalage_thumb_image" src="/public/images/9.jpg" />
-                <img class="etalage_source_image" src="/public/images/9.jpg" />
+                <img
+                  class="etalage_thumb_image"
+                  src="{{product.productPicture}}"
+                />
+                <img
+                  class="etalage_source_image"
+                  src="{{product.productPicture}}"
+                />
               </li>
             </ul>
           </div>
@@ -52,8 +91,7 @@
               </form>
             </div>
             <ul class="add-to-links">
-              <li><img src="/public/images/wish.png" alt="" />
-              <a
+              <li><img src="/public/images/wish.png" alt="" /><a
                   id="btn-whishlist"
                   href="/users/wishlist/{{product._id}}"
                 >Add to wishlist</a></li>
@@ -509,11 +547,11 @@
 <script>
   jQuery(document).ready(function($){ $('#etalage').etalage({ thumb_image_width:
   300, thumb_image_height: 400, show_hint: true, click_callback:
-  function(image_anchor, instance_id){ alert('Callback example:\\\\\\\nYou
-  clicked on an image with the anchor: "'+image_anchor+'"\n(in Etalage instance:
-  "'+instance_id+'")'); } }); // This is for the dropdown list example:
-  $('.dropdownlist').change(function(){ etalage_show(
-  $(this).find('option:selected').attr('class') ); }); });
+  function(image_anchor, instance_id){ alert('Callback
+  example:\\\\\\\\\\\\\\nYou clicked on an image with the anchor:
+  "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")'); } }); // This
+  is for the dropdown list example: $('.dropdownlist').change(function(){
+  etalage_show( $(this).find('option:selected').attr('class') ); }); });
 </script>
 
 <script src="/public/js/jquery.etalage.min.js"></script>

@@ -56,7 +56,7 @@ async function createProduct(
   const prodCollection = await products();
   const newProd = {
     productName: productName.trim(),
-    productPicture: "public/uploads/noImg.jpg",
+    productPicture: productPicture,
     productLinks: productLinks,
     brand: brand.trim(),
     price: price,
