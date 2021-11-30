@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 16;
 const validate = require("./validation");
 const { ObjectId } = require("mongodb");
+const { getProductById } = require("./products");
 
 async function getUsers() {
   const userCollection = await users();
@@ -86,7 +87,7 @@ async function createUser(
 
   const newUser = {
     userName: userName.trim(),
-    userImage: "public/uploads/profile.jpg",
+    userImage: userImage,
     firstName: firstName.trim(),
     lastName: lastName.trim(),
     password: hash,

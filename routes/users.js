@@ -24,6 +24,8 @@ router.post("/wishlist/:prodId", async (req, res) => {
   }
 });
 
+
+
 router.post("/profile", async (req, res) => {
   const {
     userName,

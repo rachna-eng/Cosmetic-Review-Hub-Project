@@ -544,7 +544,7 @@ li.list_desc h4 a:hover {
 .nbs-flexisel-item > img {
   width: 100%;
   cursor: pointer;
-  positon: relative;
+  position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
   max-width: 210px;
@@ -2481,4 +2481,377 @@ ul li {
   color: #fff;
   cursor: pointer;
   border: solid 1px #ba68c8;
+}
+
+/*add rating*/
+body {
+  padding-top: 20px;
+}
+
+.glyphicon-lg {
+  font-size: 3em;
+}
+.blockquote-box {
+  border-right: 5px solid #e6e6e6;
+  margin-bottom: 25px;
+}
+.blockquote-box .square {
+  width: 100px;
+  min-height: 50px;
+  margin-right: 22px;
+  text-align: center !important;
+  background-color: #e6e6e6;
+  padding: 20px 0;
+}
+.blockquote-box.blockquote-primary {
+  border-color: #357ebd;
+}
+.blockquote-box.blockquote-primary .square {
+  background-color: #428bca;
+  color: #fff;
+}
+.blockquote-box.blockquote-success {
+  border-color: #4cae4c;
+}
+.blockquote-box.blockquote-success .square {
+  background-color: #5cb85c;
+  color: #fff;
+}
+.blockquote-box.blockquote-info {
+  border-color: #46b8da;
+}
+.blockquote-box.blockquote-info .square {
+  background-color: #5bc0de;
+  color: #fff;
+}
+.blockquote-box.blockquote-warning {
+  border-color: #eea236;
+}
+.blockquote-box.blockquote-warning .square {
+  background-color: #f0ad4e;
+  color: #fff;
+}
+.blockquote-box.blockquote-danger {
+  border-color: #d43f3a;
+}
+.blockquote-box.blockquote-danger .square {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+/*!
+ * @copyright © Kartik Visweswaran, Krajee.com, 2014
+ * @version 2.5.0
+ *
+ * A simple yet powerful JQuery star rating plugin that allows rendering
+ * fractional star ratings and supports Right to Left (RTL) input.
+ *
+ * For more JQuery/Bootstrap plugins and demos visit http://plugins.krajee.com
+ * For more Yii related demos visit http://demos.krajee.com
+ */
+.rating-loading {
+  width: 25px;
+  height: 25px;
+  font-size: 0px;
+  color: #fff;
+  background: transparent url("../img/loading.gif") top left no-repeat;
+  border: none;
+}
+/*
+ * Stars
+ */
+.rating-gly {
+  font-family: "Glyphicons Halflings";
+}
+.rating-gly-star {
+  font-family: "Glyphicons Halflings";
+  padding-left: 2px;
+}
+
+.rating-gly-star .rating-stars:before {
+  padding-left: 2px;
+}
+
+.rating-lg .rating-gly-star,
+.rating-lg .rating-gly-star .rating-stars:before {
+  padding-left: 4px;
+}
+
+.rating-xl .rating-gly-star,
+.rating-xl .rating-gly-star .rating-stars:before {
+  padding-left: 2px;
+}
+
+.rating-active {
+  cursor: default;
+}
+
+.rating-disabled {
+  cursor: not-allowed;
+}
+
+.rating-uni {
+  font-size: 1.2em;
+  margin-top: -5px;
+}
+
+.rating-container {
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  color: #e3e3e3;
+  overflow: hidden;
+}
+
+.rating-container:before {
+  content: attr(data-content);
+}
+
+.rating-container .rating-stars {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fde16d;
+  transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+}
+
+.rating-container .rating-stars:before {
+  content: attr(data-content);
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+}
+
+.rating-container-rtl {
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  overflow: hidden;
+  color: #fde16d;
+}
+
+.rating-container-rtl:before {
+  content: attr(data-content);
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+}
+
+.rating-container-rtl .rating-stars {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #e3e3e3;
+  transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+}
+
+.rating-container-rtl .rating-stars:before {
+  content: attr(data-content);
+}
+
+/**
+ * Rating sizes
+ */
+.rating-xl {
+  font-size: 4.89em;
+}
+
+.rating-lg {
+  font-size: 3.91em;
+}
+
+.rating-md {
+  font-size: 3.13em;
+}
+
+.rating-sm {
+  font-size: 2.5em;
+}
+
+.rating-xs {
+  font-size: 2em;
+}
+
+/**
+ * Clear rating button
+ */
+.star-rating .clear-rating,
+.star-rating-rtl .clear-rating {
+  color: #aaa;
+  cursor: not-allowed;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 60%;
+}
+
+.clear-rating-active {
+  cursor: pointer !important;
+}
+
+.clear-rating-active:hover {
+  color: #843534;
+}
+
+.star-rating .clear-rating {
+  padding-right: 5px;
+}
+
+/**
+ * Caption
+ */
+.star-rating .caption,
+.star-rating-rtl .caption {
+  color: #999;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 55%;
+}
+
+.star-rating .caption {
+  padding-left: 5px;
+}
+
+.star-rating-rtl .caption {
+  padding-right: 5px;
+}
+
+/*review new style*/
+body {
+  margin-top: 20px;
+  background: #ebeef0;
+}
+
+.img-sm {
+  width: 46px;
+  height: 46px;
+}
+
+.panel {
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.075);
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 15px;
+}
+
+.panel .panel-footer,
+.panel > :last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.panel .panel-heading,
+.panel > :first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.panel-body {
+  padding: 25px 20px;
+}
+
+.media-block .media-left {
+  display: block;
+  float: left;
+}
+
+.media-block .media-right {
+  float: right;
+}
+
+.media-block .media-body {
+  display: block;
+  overflow: hidden;
+  width: auto;
+}
+
+.middle .media-left,
+.middle .media-right,
+.middle .media-body {
+  vertical-align: middle;
+}
+
+.thumbnail {
+  border-radius: 0;
+  border-color: #e9e9e9;
+}
+
+.tag.tag-sm,
+.btn-group-sm > .tag {
+  padding: 5px 10px;
+}
+
+.tag:not(.label) {
+  background-color: #fff;
+  padding: 6px 12px;
+  border-radius: 2px;
+  border: 1px solid #cdd6e1;
+  font-size: 12px;
+  line-height: 1.42857;
+  vertical-align: middle;
+  -webkit-transition: all 0.15s;
+  transition: all 0.15s;
+}
+.text-muted,
+a.text-muted:hover,
+a.text-muted:focus {
+  color: #acacac;
+}
+.text-sm {
+  font-size: 0.9em;
+}
+.text-5x,
+.text-4x,
+.text-5x,
+.text-2x,
+.text-lg,
+.text-sm,
+.text-xs {
+  line-height: 1.25;
+}
+
+.btn-trans {
+  background-color: transparent;
+  border-color: transparent;
+  color: #929292;
+}
+
+.btn-icon {
+  padding-left: 9px;
+  padding-right: 9px;
+}
+
+.btn-sm,
+.btn-group-sm > .btn,
+.btn-icon.btn-sm {
+  padding: 5px 10px !important;
+}
+
+.mar-top {
+  margin-top: 15px;
+}
+
+.card-inner {
+  margin-left: 4rem;
+}
+
+i.rating {
+  color: rgb(184, 130, 16);
+}
+
+image-tools.show-on-hover {
+  opacity: unset !important;
+}
+.wishlist-button.button.circle.icon.wishlist-added {
+  background-color: #b20000;
+  border-color: #b20000;
+  color: #fff;
+}
+.red-color {
+  color: red;
 }

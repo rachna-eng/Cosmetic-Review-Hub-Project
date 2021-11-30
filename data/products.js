@@ -1,5 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const products = mongoCollections.products;
+// const users = mongoCollections.users;
+const usersData = require("../data/users");
 const validate = require("./validation");
 const { ObjectId } = require("mongodb");
 
@@ -127,7 +129,7 @@ async function updateProduct(
     { $set: updateProd }
   );
   if (updatedInfo.modifiedCount === 0) {
-    throw "Could not update restaurant";
+    throw "Could not update Product";
   }
 
   return await getProductById(id.toString());
@@ -149,10 +151,77 @@ async function remove(id) {
   return `${delprod._id}`;
 }
 
+async function addToreviews(userId, prodId, title, reviewBody, rating) {
+  const user = await usersData.getUserById(userId.toString());
+  let date = new Date().toUTCString();
+  if (!title) {
+    throw "Add Review Title";
+  }
+  if (!reviewBody) {
+    throw "Review Cannot be empty";
+  }
+  if (!rating) {
+    throw "Add Rating";
+  }
+  if (!user) {
+    throw "Login Before you add review";
+  } else {
+    if (!validate.validString(title)) throw "Title must be a valid string.";
+    if (!validate.validString(reviewBody))
+      throw "Reviews text must be a valid string.";
+    if (!validate.validnum(rating) || rating > 5 || rating < 0)
+      throw "rating should be between 0-5";
+    rating = parseFloat(rating);
+    const prodCollection = await products();
+    // const prod = await getProductById(prodId);
+    const addreview = {
+      productId: prodId,
+      userId: userId,
+      userName: user.userName,
+      userImage: user.userImage,
+      date: date,
+      title: title,
+      reviewBody: reviewBody,
+      rating: rating,
+      likes: 0,
+      Comments: [],
+    };
+    prodId = ObjectId(prodId);
+    const updatedInfo = await prodCollection.updateOne(
+      { _id: prodId },
+      { $push: { reviews: addreview } }
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Could not add review";
+    }
+
+    //new
+
+    const prod = await getProductById(prodId.toString());
+    let overallRating = 0;
+    prod.reviews.forEach((review) => {
+      overallRating = overallRating + review.rating;
+    });
+    if (prod.reviews.length != 0)
+      overallRating = overallRating / prod.reviews.length;
+
+    const ratingUpdateInfo = await prodCollection.updateOne(
+      { _id: prodId },
+      { $set: { overallRating: overallRating } }
+    );
+    if (ratingUpdateInfo.matchedCount === 0)
+      throw "Could not update overall rating";
+
+    const product = await getProductById(prodId.toString());
+    return product;
+  }
+}
+
 module.exports = {
   getAllProducts,
   getProductById,
   createProduct,
   updateProduct,
   remove,
+  addToreviews,
 };

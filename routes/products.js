@@ -115,4 +115,33 @@ router.delete("/:id", async (req, res) => {
     res.status(404).send({ error: e });
   }
 });
+
+router.post("/review/:prodId", async (req, res) => {
+  const { title, reviewBody, rating } = req.body;
+  if (!title) {
+    res.status(400).json({ error: "You must provide review title" });
+    return;
+  }
+  if (!reviewBody) {
+    res.status(400).json({ error: "You must provide review before adding" });
+    return;
+  }
+  if (!rating) {
+    res.status(400).json({ error: "You must provide rating" });
+    return;
+  }
+  try {
+    await productData.addToreviews(
+      req.session.user._id.toString(),
+      req.params.prodId,
+      title,
+      reviewBody,
+      rating
+    );
+    return res.json("Success");
+  } catch (e) {
+    return res.status(404).send({ error: e });
+  }
+});
+
 module.exports = router;
