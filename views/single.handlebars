@@ -154,11 +154,70 @@
           </div>
         </div>
       </div>
+      
+
+<div class="container">
+    <div class="row">
+    <h2>Add Review</h2>
+    <table width="100%" border="0">
+      <div class="col-md-9 col-md-offset-0">
+        <tr><td width="77%">
+        <div class="">
+          <form id="addreview" class="form-horizontal" action="/products/review/{{product._id}}" method="post">
+          <fieldset>
+    
+            <!-- Name input-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="title">Review Title</label>
+              <div class="col-md-9">
+                <input id="title" name="title" type="text" placeholder="Title" class="form-control">
+              </div>
+            </div>
+    
+            
+            <!-- Message body -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="review">Your Review</label>
+              <div class="col-md-9">
+                <textarea class="form-control" id="reviewBody" name="reviewBody" placeholder="Please enter your review here..." rows="5"></textarea>
+              </div>
+            </div>
+
+
+            <!-- Rating -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="review">Your rating</label>
+              <div class="col-md-9">
+                <input id="rating" name=rating value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
+              </div>
+            </div>
+    </td>
+    <td align="center" valign="top" width="23%">
+            <!-- Form actions -->
+            <div class="form-group">
+              <div class="col-md-12 text-center">
+                <button name="btn-addreview" type="submit" class="btn btn-primary btn-md">Submit</button>
+                <button type="reset" class="btn btn-default btn-md">Clear</button>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+        </div>
+    </div>
+    </td>
+    </tr>
+    </table>
+</div>
+
+<br>
+<br>
+
+
       <div class="desc">
         <div class="container">
           <div id="reviews" class="review-section">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h4 class="m-0">37 Reviews</h4>
+              <h4 class="m-0">{{product.reviews.length}} Reviews</h4>
               <select
                 class="custom-select custom-select-sm border-0 shadow-sm ml-2 select2-hidden-accessible"
                 data-select2-id="1"
@@ -230,7 +289,7 @@
                         <span>
                           <button
                             class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter"
-                          >5 Stars</button>
+                          >4 Stars</button>
                         </span>
                       </td>
                       <td class="progress-bar-container">
@@ -252,7 +311,7 @@
                         <span>
                           <button
                             class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter"
-                          >5 Stars</button>
+                          >3 Stars</button>
                         </span>
                       </td>
                       <td class="progress-bar-container">
@@ -274,7 +333,7 @@
                         <span>
                           <button
                             class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter"
-                          >5 Stars</button>
+                          >2 Stars</button>
                         </span>
                       </td>
                       <td class="progress-bar-container">
@@ -296,7 +355,7 @@
                         <span>
                           <button
                             class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter"
-                          >5 Stars</button>
+                          >1 Stars</button>
                         </span>
                       </td>
                       <td class="progress-bar-container">
@@ -317,7 +376,7 @@
                 </table>
               </div>
               <div class="col-md-6">
-                <div class="ranking">
+                {{!-- <div class="ranking">
                   <h6 class="text-display-7">Rating Breakdown</h6>
                   <ul>
                     <li>
@@ -336,12 +395,13 @@
                         ></span></span>
                     </li>
                   </ul>
-                </div>
+                </div> --}}
               </div>
             </div>
           </div>
 
           <div class="review-list">
+          {{#each product.reviews}}
             <ul>
               <li>
                 <div class="d-flex">
@@ -356,7 +416,7 @@
                   </div>
                   <div class="right">
                     <h4>
-                      Askbootstrap
+                      {{this.userName}}
                       <span class="gig-rating text-body-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -369,7 +429,7 @@
                             d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"
                           ></path>
                         </svg>
-                        5.0
+                        {{this.rating}}
                       </span>
                     </h4>
                     <div class="country d-flex align-items-center">
@@ -382,14 +442,15 @@
                       <div class="country-name font-accent">India</div>
                     </div>
                     <div class="review-description">
+                      <p><strong>
+                        {{this.title}}
+                        </strong>
+                      </p>
                       <p>
-                        The process was smooth, after providing the required
-                        info, Pragyesh sent me an outstanding packet of
-                        wireframes. Thank you a lot!
+                        {{this.reviewBody}}
                       </p>
                     </div>
-                    <span class="publish py-3 d-inline-block w-100">Published 4
-                      weeks ago</span>
+                    <span class="publish py-3 d-inline-block w-100">{{this.date}}</span>
                     <div class="helpful-thumbs">
                       <div class="helpful-thumb text-body-2">
                         <span class="fit-icon thumbs-icon">
@@ -404,7 +465,7 @@
                             ></path>
                           </svg>
                         </span>
-                        <span class="thumb-title">Helpful</span>
+                        <span class="thumb-title">Like</span>
                       </div>
                       <div class="helpful-thumb text-body-2 ml-3">
                         <span class="fit-icon thumbs-icon">
@@ -419,10 +480,11 @@
                             ></path>
                           </svg>
                         </span>
-                        <span class="thumb-title">Not Helpful</span>
+                        <span class="thumb-title">Unlike</span>
                       </div>
                     </div>
                     <div class="response-item mt-4 d-flex">
+                      {{#each this.comments}}
                       <div class="left">
                         <span>
                           <img
@@ -433,8 +495,10 @@
                         </span>
                       </div>
                       <div class="right">
+                    
+
                         <h4>
-                          Gurdeep Osahan
+                          {{this.comments.userName}}
                           <span class="gig-rating text-body-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -469,12 +533,16 @@
                         <span
                           class="publish py-3 d-inline-block w-100"
                         >Published 4 weeks ago</span>
+                      
                       </div>
+                    {{/each}}
                     </div>
                   </div>
                 </div>
               </li>
             </ul>
+          
+          {{/each}}
           </div>
         </div>
       </div>
@@ -548,7 +616,7 @@
   jQuery(document).ready(function($){ $('#etalage').etalage({ thumb_image_width:
   300, thumb_image_height: 400, show_hint: true, click_callback:
   function(image_anchor, instance_id){ alert('Callback
-  example:\\\\\\\\\\\\\\nYou clicked on an image with the anchor:
+  example:\\\\\\\\\\\\\\\nYou clicked on an image with the anchor:
   "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")'); } }); // This
   is for the dropdown list example: $('.dropdownlist').change(function(){
   etalage_show( $(this).find('option:selected').attr('class') ); }); });
@@ -556,3 +624,9 @@
 
 <script src="/public/js/jquery.etalage.min.js"></script>
 <script src="/public/js/product.js"></script>
+<script src="/public/js/reviews.js"></script>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="/public/js/addreview.js"></script>

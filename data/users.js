@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 16;
 const validate = require("./validation");
 const { ObjectId } = require("mongodb");
+const { getProductById } = require("./products");
 
 async function getUsers() {
   const userCollection = await users();
@@ -214,6 +215,8 @@ async function addToWishList(userId, prodId) {
   }
 }
 
+
+
 module.exports = {
   getUsers,
   getUserById,
@@ -222,4 +225,5 @@ module.exports = {
   remove,
   login,
   addToWishList,
+  
 };
