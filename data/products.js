@@ -178,6 +178,7 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
       productId: prodId,
       userId: userId,
       userName: user.userName,
+      userImage: user.userImage,
       date: date,
       title: title,
       reviewBody: reviewBody,

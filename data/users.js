@@ -87,7 +87,7 @@ async function createUser(
 
   const newUser = {
     userName: userName.trim(),
-    userImage: "public/uploads/profile.jpg",
+    userImage: userImage,
     firstName: firstName.trim(),
     lastName: lastName.trim(),
     password: hash,
@@ -215,8 +215,6 @@ async function addToWishList(userId, prodId) {
   }
 }
 
-
-
 module.exports = {
   getUsers,
   getUserById,
@@ -225,5 +223,4 @@ module.exports = {
   remove,
   login,
   addToWishList,
-  
 };

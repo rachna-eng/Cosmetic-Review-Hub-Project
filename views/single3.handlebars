@@ -82,10 +82,8 @@
           <!-- end product_slider -->
           <div class="single_right">
             <h3>{{product.productName}}</h3>
-       
-            <p class="m_10"><strong>Brand: </strong>{{product.brand}}</p>
-            
-            <p class="m_10"><strong>Category</strong><br>{{product.category}}</p>
+            <p class="m_10">{{product.brand}}</p>
+            <p class="m_10">{{product.category}}</p>
 
             <div class="btn_form">
               <form>
@@ -93,13 +91,13 @@
               </form>
             </div>
             <ul class="add-to-links">
-              <li><i class="fa fa-heart red-color " ></i><a
+              <li><img src="/public/images/wish.png" alt="" /><a
                   id="btn-whishlist"
                   href="/users/wishlist/{{product._id}}"
-                > Add to wishlist</a></li>
+                >Add to wishlist</a></li>
             </ul>
             <div class="social_buttons">
-              <h4>{{product.reviews.length}} Reviews</h4>
+              <h4>95 Items</h4>
               <button
                 type="button"
                 class="btn1 btn1-default1 btn1-twitter"
@@ -190,7 +188,7 @@
             <div class="form-group">
               <label class="col-md-3 control-label" for="review">Your rating</label>
               <div class="col-md-9">
-                <input id="rating" name=rating value="0" type="number" class="rating" min=0 max=5 step=1 data-size="xs" >
+                <input id="rating" name=rating value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
               </div>
             </div>
     </td>
@@ -260,7 +258,7 @@
                 <span class="dropdown-wrapper" aria-hidden="true"></span>
               </span>
             </div>
-            {{!-- <div class="row">
+            <div class="row">
               <div class="col-md-6">
                 <table class="stars-counters">
                   <tbody>
@@ -379,12 +377,12 @@
               </div>
               <div class="col-md-6">
               </div>
-            </div> --}}
+            </div>
           </div>
 
           <div class="review-list">
           {{#each product.reviews}}
-            {{!-- <ul>
+            <ul>
               <li>
                 <div class="d-flex">
                   <div class="left">
@@ -522,72 +520,18 @@
                   </div>
                 </div>
               </li>
-            </ul> --}}
-            
-            <div class="card">
-	    <div class="card-body">
-	        <div class="row">
-        	    <div class="col-md-2">
-        	        <img src={{this.userImage}} class="img img-rounded img-fluid"/>
-        	        <p class="text-secondary text-center">{{this.date}}</p>
-        	    </div>
-        	    <div class="col-md-10">
-        	        <p>
-        	            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{this.userName}}</strong></a>
-        	            
-                        
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	            <span class="float-right" ><i class="rating"><strong>{{this.rating}} </strong></i> <i class="text-warning fa fa-star"></i></span>
-            
-                       
-
-        	       </p>
-        	       <div class="clearfix"></div>
-        	        <p>{{this.title}}</p>
-                    <p>{{this.reviewBody}}</p>
-        	        <p>
-        	            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-        	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-        	       </p>
-        	    </div>
-	        </div>
-            {{#each this.comments}}
-	        	<div class="card card-inner">
-            	    <div class="card-body">
-            	        <div class="row">
-                    	    <div class="col-md-2">
-                    	        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                    	        <p class="text-secondary text-center">15 Minutes Ago</p>
-                    	    </div>
-                    	    <div class="col-md-10">
-                    	        <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
-                    	        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    	        <p>
-                    	            <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
-                    	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-                    	       </p>
-                    	    </div>
-            	        </div>
-                         
-            	    </div>
-              
-	            </div>
-                 {{/each}}
-	    </div>
-	</div>
+            </ul>
           
           {{/each}}
           </div>
         </div>
       </div>
       <div class="row">
-        <h4 class="m_11">Related Products</h4>
+        <h4 class="m_11">Related Products in the same Category</h4>
         <div class="col-md-4 product1">
-          <img src="/public/uploads/fe1.jpg" class="img-responsive" alt="" />
-          <div class="shop_desc"><a href="/products">
-            </a><h3><a href="/products"></a><a href="#">aliquam volutp</a></h3>
+          <img src="/public/images/s1.jpg" class="img-responsive" alt="" />
+          <div class="shop_desc"><a href="single.html">
+            </a><h3><a href="single.html"></a><a href="#">aliquam volutp</a></h3>
             <p>Lorem ipsum consectetuer adipiscing </p>
             <span class="reducedfrom">$66.00</span>
             <span class="actual">$12.00</span><br />
@@ -599,9 +543,9 @@
           </div>
         </div>
         <div class="col-md-4 product1">
-          <img src="/public/uploads/f1.jpg" class="img-responsive" alt="" />
-          <div class="shop_desc"><a href="/products">
-            </a><h3><a href="/products"></a><a href="#">aliquam volutp</a></h3>
+          <img src="/public/images/s2.jpg" class="img-responsive" alt="" />
+          <div class="shop_desc"><a href="single.html">
+            </a><h3><a href="single.html"></a><a href="#">aliquam volutp</a></h3>
             <p>Lorem ipsum consectetuer adipiscing </p>
             <span class="reducedfrom">$66.00</span>
             <span class="actual">$12.00</span><br />
@@ -613,9 +557,9 @@
           </div>
         </div>
         <div class="col-md-4">
-          <img src="/public/uploads/fm1.jpg" class="img-responsive" alt="" />
-          <div class="shop_desc"><a href="/products">
-            </a><h3><a href="/products"></a><a href="#">aliquam volutp</a></h3>
+          <img src="/public/images/s3.jpg" class="img-responsive" alt="" />
+          <div class="shop_desc"><a href="single.html">
+            </a><h3><a href="single.html"></a><a href="#">aliquam volutp</a></h3>
             <p>Lorem ipsum consectetuer adipiscing </p>
             <span class="reducedfrom">$66.00</span>
             <span class="actual">$12.00</span><br />
@@ -651,8 +595,10 @@
 <script>
   jQuery(document).ready(function($){ $('#etalage').etalage({ thumb_image_width:
   300, thumb_image_height: 400, show_hint: true, click_callback:
-  function(image_anchor, instance_id){ alert('Callbackexample:\\\\\\\\\\\\\\\nYou clicked on an image with the anchor:
-  "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")'); } }); // This is for the dropdown list example: $('.dropdownlist').change(function(){
+  function(image_anchor, instance_id){ alert('Callback
+  example:\\\\\\\\\\\\\\\nYou clicked on an image with the anchor:
+  "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")'); } }); // This
+  is for the dropdown list example: $('.dropdownlist').change(function(){
   etalage_show( $(this).find('option:selected').attr('class') ); }); });
 </script>
 
