@@ -81,6 +81,7 @@
       },
       error: function (xhr, textStatus, error) {
         alert("Login to Add Review, FILL ALL DETAILS, Failed to Add");
+        console.log(error)
       },
     });
   });
