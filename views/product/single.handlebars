@@ -1,0 +1,272 @@
+<div class="main">
+  <div class="shop_top">
+    <div class="container">
+      <div class="row">  
+         <div class="col-md-9 single_left">
+          <div class="single_image">
+            <ul id="etalage">
+              <li>
+                <a href="optionallink.html">
+                  <img
+                    class="etalage_thumb_image"
+                    src="{{product.productPicture}}"
+                  />
+                  <img
+                    class="etalage_source_image"
+                    src="{{product.productPicture}}"
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- end product_slider -->
+          <div class="single_right">
+            <h3>{{product.productName}}</h3>
+       
+            <p class="m_10"><strong>Brand: </strong>{{product.brand}}</p>
+            
+            <p class="m_10"><strong>Category</strong><br>{{product.category}}</p>
+
+            <ul class="add-to-links">
+              <li><i class="fa fa-heart red-color " ></i><a
+                  id="btn-whishlist"
+                  href="/users/wishlist/{{product._id}}"
+                > Add to wishlist</a></li>
+            </ul>
+          </div>
+          <div class="clear"> </div>
+        </div>
+        <div class="col-md-3">
+          <div class="box-info-product">
+            <p class="price2">${{product.price}}</p>
+            <a href = {{product.productLinks}}>Buy Now</a>
+          </div>
+        </div>
+      </div>
+      
+
+<div class="container">
+    <div class="row">
+    <h2>Add Review</h2>
+    <table width="100%" border="0">
+      <div class="col-md-9 col-md-offset-0">
+        <tr><td width="77%">
+        <div class="">
+          <form id="addreview" class="form-horizontal" action="/products/review/{{product._id}}" method="post">
+          <fieldset>
+    
+            <!-- Name input-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="title">Review Title</label>
+              <div class="col-md-9">
+                <input id="title" name="title" type="text" placeholder="Title" class="form-control">
+              </div>
+            </div>
+    
+            
+            <!-- Message body -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="review">Your Review</label>
+              <div class="col-md-9">
+                <textarea class="form-control" id="reviewBody" name="reviewBody" placeholder="Please enter your review here..." rows="5"></textarea>
+              </div>
+            </div>
+
+
+            <!-- Rating -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="review">Your rating</label>
+              <div class="col-md-9">
+                <input id="rating" name=rating value="0" type="number" class="rating" min=0 max=5 step=1 data-size="xs" >
+              </div>
+            </div>
+    </td>
+    <td align="center" valign="top" width="23%">
+            <!-- Form actions -->
+            <div class="form-group">
+              <div class="col-md-12 text-center">
+                <button name="btn-addreview" type="submit" class="btn btn-primary btn-md">Submit</button>
+                <button type="reset" class="btn btn-default btn-md">Clear</button>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+        </div>
+    </div>
+    </td>
+    </tr>
+    </table>
+</div>
+
+<br>
+<br>
+      <div class="desc">
+        <div class="container">
+          <div id="reviews" class="review-section">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <h4 class="m-0">{{product.reviews.length}} Reviews</h4>
+              <select
+                class="custom-select custom-select-sm border-0 shadow-sm ml-2 select2-hidden-accessible"
+                data-select2-id="1"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <option data-select2-id="3">Most Relevant</option>
+                <option>Most Recent</option>
+              </select>
+              <span
+                class="select2 select2-container select2-container--default"
+                dir="ltr"
+                data-select2-id="2"
+                style="width: 188px;"
+              >
+                <span class="selection">
+                  <span
+                    class="select2-selection select2-selection--single"
+                    role="combobox"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    tabindex="0"
+                    aria-labelledby="select2-qd66-container"
+                  >
+                    <span
+                      class="select2-selection__rendered"
+                      id="select2-qd66-container"
+                      role="textbox"
+                      aria-readonly="true"
+                      title="Most Relevant"
+                    >Most Relevant</span>
+                    <span
+                      class="select2-selection__arrow"
+                      role="presentation"
+                    ><b role="presentation"></b></span>
+                  </span>
+                </span>
+                <span class="dropdown-wrapper" aria-hidden="true"></span>
+              </span>
+            </div>
+          </div>
+
+          <div class="review-list">
+          {{#each product.reviews}}
+            <div class="card">
+	    <div class="card-body">
+	        <div class="row">
+        	    <div class="col-md-2">
+        	        <img src={{this.userImage}} class="img img-rounded img-fluid"/>
+                  <p class="text-center"><a  href="/users/{{this.userId}}"><strong>{{this.userName}}</strong></a></p>
+        	        <p class="text-secondary text-center">{{this.date}}</p>
+        	    </div>
+        	    <div class="col-md-10">
+                  <span ><i class="rating"><strong>{{this.rating}}  </strong></i> 
+                  <i class="text-warning fa fa-star"></i></span>
+        	        <h4>{{this.title}}</h4>
+                  <p>{{this.reviewBody}}</p>
+        	        <p>
+        	          <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-comment"></i> Comment</a>
+        	          <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>  
+        	       </p>
+        	    </div>
+	        </div>
+          <div class="card-header">
+            Comments
+          </div>
+            {{#each this.comments}}
+	        	<div class="card card-inner">
+            	  <div class="card-body">
+            	    <div class="row">
+                    <div class="col-md-10">
+                    	  <p><a href="/users/id"><strong>{{this.comments.userName}}</strong></a></p>
+                    	    <p>{{this.comments.text}}</p>
+                    	    <p>
+                    	    <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
+                    	    <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                          </p>
+                    </div>
+            	    </div>
+                </div>
+            </div>
+            {{/each}}
+	    </div>
+	</div>    
+          {{/each}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h4 class="m_11">Explore Products</h4>
+        <div class="col-md-4 product1">
+          <img src="/public/uploads/l1.jpg" class="img-responsive" alt="" />
+          <div class="shop_desc"><a href="/products/61a964707a26e90dd47368d9">
+            </a><h3><a href="/products/61a964707a26e90dd47368d9"></a><a href="/products/61a964707a26e90dd47368d9">Matte Revolution Lipstick</a></h3>
+            <p>Charlotte Tilbury </p>
+            <span class="actual">$34.00</span><br />
+            <ul class="buttons">
+              <li class="shop_btn"><a href="/products/61a964707a26e90dd47368d9">Read More</a></li>
+              <div class="clear"> </div>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4 product1">
+          <img src="/public/uploads/f1.jpg" class="img-responsive" alt="" />
+          <div class="shop_desc"><a href="/products/61a964707a26e90dd47368d3">
+            </a><h3><a href="/products/61a964707a26e90dd47368d3"></a><a href="/products/61a964707a26e90dd47368d3">Backstage Face &amp; Body Foundation</a></h3>
+            <p>Dior </p>
+            <span class="actual">$40.00</span><br />
+            <ul class="buttons">
+              <li class="shop_btn"><a href="/products/61a964707a26e90dd47368d3">Read More</a></li>
+              <div class="clear"> </div>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <img src="/public/uploads/fm1.jpg" class="img-responsive" alt="" />
+          <div class="shop_desc"><a href="/products/61a964707a26e90dd47368df">
+            </a><h3><a href="/products/61a964707a26e90dd47368df"></a><a href="/products/61a964707a26e90dd47368df">Pore Clearing Mask</a></h3>
+            <p>innisfree</p>
+            <span class="actual">$15.00</span><br />
+            <ul class="buttons">
+              <li class="shop_btn"><a href="/products/61a964707a26e90dd47368df">Read More</a></li>
+              <div class="clear"> </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() { $(".dropdown
+  img.flag").addClass("flagvisibility"); $(".dropdown dt a").click(function() {
+  $(".dropdown dd ul").toggle(); }); $(".dropdown dd ul li a").click(function()
+  { var text = $(this).html(); $(".dropdown dt a span").html(text); $(".dropdown
+  dd ul").hide(); $("#result").html("Selected value is: " +
+  getSelectedValue("sample")); }); function getSelectedValue(id) { return $("#"
+  + id).find("dt a span.value").html(); } $(document).bind('click', function(e)
+  { var $clicked = $(e.target); if (! $clicked.parents().hasClass("dropdown"))
+  $(".dropdown dd ul").hide(); }); $("#flagSwitcher").click(function() {
+  $(".dropdown img.flag").toggleClass("flagvisibility"); }); });
+</script>
+<!----details-product-slider--->
+				<!-- Include the Etalage files -->
+<link rel="stylesheet" href="css/etalage.css" />
+<script src="js/jquery.etalage.min.js"></script>
+<!-- Include the Etalage files -->
+<script>
+  jQuery(document).ready(function($){ $('#etalage').etalage({ thumb_image_width:
+  300, thumb_image_height: 400, show_hint: true, click_callback:
+  function(image_anchor, instance_id){ alert('Callbackexample:\\\\\\\\\\\\\\\nYou clicked on an image with the anchor:
+  "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")'); } }); // This is for the dropdown list example: $('.dropdownlist').change(function(){
+  etalage_show( $(this).find('option:selected').attr('class') ); }); });
+</script>
+
+<script src="/public/js/jquery.etalage.min.js"></script>
+<script src="/public/js/product.js"></script>
+<script src="/public/js/reviews.js"></script>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="/public/js/addreview.js"></script>
