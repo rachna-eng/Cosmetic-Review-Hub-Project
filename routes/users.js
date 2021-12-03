@@ -81,59 +81,61 @@ router.post("/profile", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const {
-    userName,
-    userImage,
-    firstName,
-    lastName,
-    password,
-    email,
-    makeupLevel,
-  } = req.body;
-  if (!userName) {
+  if(!req.body){
+    res.status(401).render("users/signup", {title: "Sign Up", error: "Error: Username or password was not provided"});
+  }
+  else if (!userName) {
     res.status(400).json({ error: "You must provide User name" });
-    return;
   }
-  if (!userImage) {
-    res.status(400).json({ error: "You must provide User picture" });
-    return;
-  }
-  if (!firstName) {
+  else if (!firstName) {
     res.status(400).json({ error: "You must provide User's firstName" });
-    return;
   }
-  if (!lastName) {
+  else if (!lastName) {
     res.status(400).json({ error: "You must provide User's lastName" });
-    return;
   }
-  if (!password) {
+  else if (!password) {
     res.status(400).json({ error: "You must provide password" });
-    return;
   }
-  if (!email) {
+  else if (!email) {
     res.status(400).json({ error: "You must provide email Id" });
-    return;
   }
-  if (!makeupLevel) {
+  else if (!makeupLevel) {
     res.status(400).json({ error: "You must provide makeup level" });
-    return;
   }
-
-  try {
-    const user = await userData.createUser(
+  else {
+      const {
       userName,
-      userImage,
       firstName,
       lastName,
       password,
       email,
-      makeupLevel
-    );
-    req.session.user = user;
-    res.render("users", { user: user });
-  } catch (e) {
-    res.status(400).send({ error: e });
+      makeupLevel,
+    } = req.body;
+
+    try {
+      const user = await userData.createUser(
+        userName,
+        firstName,
+        lastName,
+        password,
+        email,
+        makeupLevel
+      );
+      req.session.user = user;
+    } catch(e) {
+      res.status(400).render("users/signup", {title: "Sign Up", error: "Error: " + e});
+    }
+    if(!userAdded){
+      res.status(500).render("users/signup", {title: "Sign Up", error: "Error: Internal Server Error"});
+    }
+    else if(userAdded.userInserted == true){
+      res.render("/", { user: req.session.user });
+    }
+    else{
+      res.status(500).render("users/signup", {title: "Sign Up", error: "Error: Internal Server Error"});
+    }
   }
+  
 });
 
 router.put("/users", async (req, res) => {
