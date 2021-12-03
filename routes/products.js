@@ -14,7 +14,8 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/add", async (req, res) => {
-  return res.render("product/add"); 
+  //if not user redirect to login
+  return res.render("product/add", {user: req.session.user }); 
 });
 
 router.get("/:id", async (req, res) => {
@@ -23,6 +24,18 @@ router.get("/:id", async (req, res) => {
     res.render("product/single", { product: product, user: req.session.user });
   } catch (e) {
     res.status(404).json({ error: "Product not found" });
+  }
+});
+
+router.post("/search", async (req, res) => {
+  try {
+  
+    let searchTerm = req.body;
+    
+    const productList = await productData.searchProducts(searchTerm);
+    res.render("product/products", { products: productList, user: req.session.user });
+  } catch (e) {
+    res.status(404).render("landing/error", { error: e, user: req.session.user });
   }
 });
 
@@ -77,11 +90,11 @@ router.post("/add", async (req, res) => {
   productBrand = req.body.newProdBrand
 
   if (!productName) {
-    res.status(400).render("product/add", { prod: formBody, error: "You must provide product name." });
+    res.status(400).render("product/add", { prod: formBody, error: "You must provide product name.",user: req.session.user });
     return;
   }
   if (!productBrand) {
-    res.status(400).render("product/add",{ prod: formBody, error: "You must provide the brand of the product." });
+    res.status(400).render("product/add",{ prod: formBody, error: "You must provide the brand of the product.",user: req.session.user });
     return;
   }
 

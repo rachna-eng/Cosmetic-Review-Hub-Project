@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
     //const reviews = await reviewData.getReviewByUser(req.params.id);
     res.render("users/profile", { users: users, user: req.session.user });
   } catch (e) {
-    res.status(404).send({ error: "User not found"});
+    res.status(404).render("landing/error", { error: "Not Found" });
   }
 });
 
