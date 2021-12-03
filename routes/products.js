@@ -3,14 +3,6 @@ const router = express.Router();
 const data = require("../data");
 const productData = data.products;
 
-router.get("/:id", async (req, res) => {
-  try {
-    const product = await productData.getProductById(req.params.id);
-    res.render("product/single", { product: product, user: req.session.user });
-  } catch (e) {
-    res.status(404).json({ error: "Product not found" });
-  }
-});
 
 router.get("/", async (req, res) => {
   try {
@@ -18,6 +10,19 @@ router.get("/", async (req, res) => {
     res.render("product/products", { products: productList, user: req.session.user });
   } catch (e) {
     res.status(404).send({ error: e, user: req.session.user });
+  }
+});
+
+router.get("/add", async (req, res) => {
+  return res.render("product/add"); 
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await productData.getProductById(req.params.id);
+    res.render("product/single", { product: product, user: req.session.user });
+  } catch (e) {
+    res.status(404).json({ error: "Product not found" });
   }
 });
 
@@ -62,6 +67,33 @@ router.post("/", async (req, res) => {
   } catch (e) {
     res.status(400).send({ error: e });
   }
+});
+
+
+
+router.post("/add", async (req, res) => {
+  let formBody = req.body;
+  productName = req.body.newProdName
+  productBrand = req.body.newProdBrand
+
+  if (!productName) {
+    res.status(400).render("product/add", { prod: formBody, error: "You must provide product name." });
+    return;
+  }
+  if (!productBrand) {
+    res.status(400).render("product/add",{ prod: formBody, error: "You must provide the brand of the product." });
+    return;
+  }
+
+  let success = "You're request has been submitted for review successfully!"
+/*
+  try {
+    //send it to the admin page
+    res.render("product/add", {success: success});
+  } catch (e) {
+    res.status(400).send({ error: e });
+  }
+  */
 });
 
 router.put("/:id", async (req, res) => {

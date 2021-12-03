@@ -5,20 +5,6 @@ const userData = data.users;
 //const reviewData = review.data;
 
 
-router.get("/:id", async (req, res) => {
-  try {
-    const users = await userData.getUserById(req.params.id);
-    /*
-    const reviews = await reviewData.getReviewByUser(req.params.id);
-    */
-    res.render("users/profile", { users: users, /*reviews: reviews,*/ user: req.session.user });
-  } catch (e) {
-    res.status(404).send({ error: "User not found" });
-  }
-});
-
-
-
 router.get("/login", async (req, res) => {
   return res.render("users/login", { user: req.session.user });
 });
@@ -26,6 +12,22 @@ router.get("/login", async (req, res) => {
 router.get("/signup", async (req, res) => {
   return res.render("users/signup"); //add a redirect to account page if user authenticated??
 });
+
+router.get("/logout", async (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const users = await userData.getUserById(req.params.id);
+    //const reviews = await reviewData.getReviewByUser(req.params.id);
+    res.render("users/profile", { users: users, user: req.session.user });
+  } catch (e) {
+    res.status(404).send({ error: "User not found"});
+  }
+});
+
 
 router.post("/login", async (req, res) => {
   if(!req.body){
@@ -48,6 +50,8 @@ router.post("/login", async (req, res) => {
     res.render("users/login", { user: req.session.user, error: e });
   }
 });
+
+
 
 router.post("/signup", async (req, res) => {
   if(!req.body){
@@ -245,8 +249,5 @@ router.delete("/:id", async (req, res) => {
 
 */
 
-router.get("/logout", async (req, res) => {
-  req.session.destroy();
-  res.redirect("/");
-});
+
 module.exports = router;
