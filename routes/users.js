@@ -24,7 +24,31 @@ router.post("/wishlist/:prodId", async (req, res) => {
   }
 });
 
+router.get("/login", async (req, res) => {
+  return res.render("users/login", { user: req.session.user });
+});
 
+router.post("/login", async (req, res) => {
+  if(!req.body){
+    res.status(401).render("users/login", {error: "Error: Username or password was not provided"});
+  }
+  const { username, password } = req.body;
+  if (!username) {
+    res.status(400).render("users/login", {error: "You must provide an email"});
+    return;
+  }
+  if (!password) {
+    res.status(400).render("users/login", {error: "You must provide a password"});
+    return;
+  }
+  try {
+    const user = await userData.login(username, password);
+    req.session.user = user;
+    res.render("landing/landing", { user: req.session.user });
+  } catch (e) {
+    res.render("users/login", { user: req.session.user, error: e });
+  }
+});
 
 router.post("/profile", async (req, res) => {
   const {
@@ -80,41 +104,43 @@ router.post("/profile", async (req, res) => {
   }
 });
 
+router.get("/signup", async (req, res) => {
+  return res.render("users/signup");
+});
+
 router.post("/signup", async (req, res) => {
   if(!req.body){
-    res.status(401).render("users/signup", {title: "Sign Up", error: "Error: Username or password was not provided"});
+    res.status(401).render("users/signup", {error: "Please fill out all fields"});
   }
-  else if (!userName) {
-    res.status(400).json({ error: "You must provide User name" });
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const username = req.body.username;
+  const password = req.body.password;
+  const email = req.body.email;
+  const makeupLevel = req.body.makeupLevel;
+
+  if (!username) {
+    res.status(400).render("users/signup",{title: "Sign Up", error: "You must provide a username" });
   }
   else if (!firstName) {
-    res.status(400).json({ error: "You must provide User's firstName" });
+    res.status(400).render("users/signup",{title: "Sign Up", error: "You must provide a first Name" });
   }
   else if (!lastName) {
-    res.status(400).json({ error: "You must provide User's lastName" });
+    res.status(400).render("users/signup",{title: "Sign Up",  error: "You must provide a last Name" });
   }
   else if (!password) {
-    res.status(400).json({ error: "You must provide password" });
+    res.status(400).render("users/signup",{ error: "You must provide password" });
   }
   else if (!email) {
-    res.status(400).json({ error: "You must provide email Id" });
+    res.status(400).render("users/signup",{title: "Sign Up", error: "You must provide an email" });
   }
   else if (!makeupLevel) {
-    res.status(400).json({ error: "You must provide makeup level" });
+    res.status(400).render("users/signup",{title: "Sign Up", error: "You must provide makeup level" });
   }
   else {
-      const {
-      userName,
-      firstName,
-      lastName,
-      password,
-      email,
-      makeupLevel,
-    } = req.body;
-
     try {
       const user = await userData.createUser(
-        userName,
+        username,
         firstName,
         lastName,
         password,
@@ -129,7 +155,7 @@ router.post("/signup", async (req, res) => {
       res.status(500).render("users/signup", {title: "Sign Up", error: "Error: Internal Server Error"});
     }
     else if(userAdded.userInserted == true){
-      res.render("/", { user: req.session.user });
+      res.render("/users/login");
     }
     else{
       res.status(500).render("users/signup", {title: "Sign Up", error: "Error: Internal Server Error"});

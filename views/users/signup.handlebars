@@ -1,0 +1,42 @@
+<div class="container rounded bg-white mt-5 mb-5">
+    {{!-- <a href="/">sign up here</a> --}}
+    <form action="/users/signup" method="POST" name="signup" id="signup-form"></form>
+        <div class="col-md-5 border">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <br>
+                    <h3 class="text-centre">Information</h3>
+                    <br>
+                    <br>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">First Name</label><input type="text" class="form-control" placeholder="First Name" id= "firstName" name= "firstName"></div>
+                    <div class="col-md-6"><label class="labels">Last Name</label><input type="text" class="form-control" placeholder="Last Name" id= "lastName" name= "lastName"></div>
+                </div>
+                <div class="row mt-3"> 
+                    <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder="Enter Username" id= "userame" name= "userame"></div>
+                    <div class="col-md-12"><label class="labels">Password</label><input type="text" class="form-control" placeholder="Enter Password" id= "password" name= "password"></div>
+                    <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="Enter Email" id= "email" name= "email"></div>
+                    <div id= "dropdown" 
+                    class="col-md-12"><label class="labels">Makeup Level</label><select>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Expert">Expert</option>
+                            </select>
+                    </div>
+            
+                </div>
+                <br>
+                <br>
+                <div class="mt-5 text-center">
+                    <button class="btn btn-primary profile-button" type="submit">Sign Up</button>
+                </div>
+                <br>
+            </div>
+        </div>
+    </form> 
+    <p class= "Error">{{error}}</p>  
+    </div>
+</div>
+</div>
+</div>

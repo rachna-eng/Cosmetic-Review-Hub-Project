@@ -6,7 +6,7 @@ const productData = data.products;
 router.get("/:id", async (req, res) => {
   try {
     const product = await productData.getProductById(req.params.id);
-    res.render("single", { product: product, user: req.session.user });
+    res.render("product/single", { product: product, user: req.session.user });
   } catch (e) {
     res.status(404).json({ error: "Product not found" });
   }
@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const productList = await productData.getAllProducts();
-    res.render("products", { products: productList, user: req.session.user });
+    res.render("product/products", { products: productList, user: req.session.user });
   } catch (e) {
     res.status(404).send({ error: e, user: req.session.user });
   }
@@ -119,15 +119,15 @@ router.delete("/:id", async (req, res) => {
 router.post("/review/:prodId", async (req, res) => {
   const { title, reviewBody, rating } = req.body;
   if (!title) {
-    res.status(400).json({ error: "You must provide review title" });
+    res.status(400).render("product/single", { error: "You must provide review title" });
     return;
   }
   if (!reviewBody) {
-    res.status(400).json({ error: "You must provide review before adding" });
+    res.status(400).render("product/single",{ error: "You must provide review before adding" });
     return;
   }
   if (!rating) {
-    res.status(400).json({ error: "You must provide rating" });
+    res.status(400).render("product/single",{ error: "You must provide rating" });
     return;
   }
   try {
