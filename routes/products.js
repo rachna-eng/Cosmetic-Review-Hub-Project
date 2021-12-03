@@ -130,6 +130,7 @@ router.post("/review/:prodId", async (req, res) => {
     res.status(400).render("product/single",{ error: "You must provide rating" });
     return;
   }
+  //add to review database then from that add to product array
   try {
     await productData.addToreviews(
       req.session.user._id.toString(),
