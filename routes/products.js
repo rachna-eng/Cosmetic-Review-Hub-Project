@@ -107,14 +107,14 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  try {
-    const prodId = await productData.remove(req.params.id);
-    res.json({ productId: prodId, deleted: true });
-  } catch (e) {
-    res.status(404).send({ error: e });
-  }
-});
+// router.delete("/:id", async (req, res) => {
+//   try {
+//     const prodId = await productData.remove(req.params.id);
+//     res.json({ productId: prodId, deleted: true });
+//   } catch (e) {
+//     res.status(404).send({ error: e });
+//   }
+// });
 
 router.post("/review/:prodId", async (req, res) => {
   const { title, reviewBody, rating } = req.body;
