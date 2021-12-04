@@ -135,6 +135,15 @@ async function updateProduct(
   return await getProductById(id.toString());
 }
 
+async function searchProducts(keyword) {
+  const prodCollection = await products();
+
+  const prod = await prodCollection.find( { $text: { $search: keyword} },{ score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } )
+
+  // Convert _id field to string before returning
+  return prod.map(validate.convertObjId);
+}
+
 async function remove(id) {
   if (!validate.validString(id)) throw "Product id must be a valid string.";
 
@@ -217,6 +226,8 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
   }
 }
 
+
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -224,4 +235,5 @@ module.exports = {
   updateProduct,
   remove,
   addToreviews,
+  searchProducts
 };
