@@ -234,25 +234,25 @@ async function main() {
   //   "pending"
   // );
 
-  await products.createProduct(
-    "Matte Revolution Lipstick",
-    "/public/uploads/l1.jpg",
-    [
-      "https://www.sephora.com/product/matte-revolution-lipstick-P433530?skuId=2116879",
-    ],
-    "Charlotte Tilbury",
-    34.0,
-    "Lipstick"
-  );
+  // await products.createProduct(
+  //   "Matte Revolution Lipstick",
+  //   "/public/uploads/l1.jpg",
+  //   [
+  //     "https://www.sephora.com/product/matte-revolution-lipstick-P433530?skuId=2116879",
+  //   ],
+  //   "Charlotte Tilbury",
+  //   34.0,
+  //   "Lipstick"
+  // );
 
-  await products.createProduct(
-    "Lip Liner To Go",
-    "/public/uploads/ll1.jpg",
-    ["https://www.sephora.com/product/lip-liner-to-go-P395532?skuId=1656032"],
-    "SEPHORA COLLECTION",
-    6.0,
-    "Lip Liner"
-  );
+  // await products.createProduct(
+  //   "Lip Liner To Go",
+  //   "/public/uploads/ll1.jpg",
+  //   ["https://www.sephora.com/product/lip-liner-to-go-P395532?skuId=1656032"],
+  //   "SEPHORA COLLECTION",
+  //   6.0,
+  //   "Lip Liner"
+  // );
 
   // await products.createProduct(
   //   "Ambient Lighting Blush Collection",
