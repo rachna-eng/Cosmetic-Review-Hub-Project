@@ -7,8 +7,6 @@ router.get("/:id", async (req, res) => {
   try {
     const product = await productData.getProductById(req.params.id);
     const progressbar = await productData.progressbar(req.params.id);
-    // const a =  prodans.1
-    // const b = , 2: prod.2, 3:prod.3}
     res.render("single", {
       product: product,
       status: progressbar,

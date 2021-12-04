@@ -14,6 +14,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
 <script src="/public/js/jquery.min.js"></script>
 {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 <!--<script src="public/js/jquery.easydropdown.js"></script>-->
@@ -83,6 +84,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 					});
 				</script>
+<script>
+	$(function($) {
+  $(document).on('click', '.box-btn', function(event) {
+    $(this).find('.glyphicon').toggleClass('red').toggleClass('glyphicon-heart-empty glyphicon-heart');
+  });
+});
+</script>
+
 
 <!--end slider -->
 <script type="text/javascript">
@@ -125,10 +134,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			  <div class="col-md-12">
 				 <div class="header-left">
 					 <div class="logo">
-						<a href="index.html"><img src="public/images/logo.png" alt=""/></a>
+						<a href="#"><img src="public/images/logo.png" alt=""/></a>
 					 </div>
 					 <div class="menu">
-						  <a class="toggleMenu" href="#"><img src="public/images/nav.png" alt="" /></a>
+						  <a class="toggleMenu" href="#"><img  src="public/images/nav.png" alt="" /></a>
 						    <ul class="nav" id="nav">
 						    	<li><a href="/products">Products</a></li>
 								{{#if user}}
@@ -136,7 +145,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								{{else}}
 						    	<li><a href="/login">Login</a></li>
 								{{/if}}
-						    	<li><a href="experiance.html">Experiance</a></li>
 						    	<li><a href="shop.html">Company</a></li>
 								<li><a href="contact.html">Contact</a></li>		
 								{{#if user}}

@@ -201,6 +201,7 @@ async function addToWishList(userId, prodId) {
   user.wishList.forEach((e) => {
     if (e == prodId) {
       flag = true;
+     
     }
   });
   userId = ObjectId(userId);

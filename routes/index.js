@@ -12,12 +12,34 @@ const constructorMethod = (app) => {
     return res.render("index", { user: req.session.user });
   });
 
-  app.get("/logout", (req, res) => {
+  // app.get("/logout", (req, res) => {
+  //   req.session.destroy();
+  //   res.redirect("/");
+  // });
+
+  app.get("/logout", function (req, res) {
+    if (!req.session.user) {
+      res.header(
+        "Cache-Control",
+        "private, no-cache, no-store, must-revalidate"
+      );
+      res.redirect("/");
+    }
     req.session.destroy();
-    return res.redirect("/");
+    res.redirect("/");
   });
+
+  // app.use(function (req, res, next) {
+  //   if (!req.user)
+  //     res.header(
+  //       "Cache-Control",
+  //       "private, no-cache, no-store, must-revalidate"
+  //     );
+  //   next();
+  // });
+
   app.get("/login", (req, res) => {
-    return res.render("login", { user: req.session.user });
+    return res.render("login");
   });
 
   app.post("/login", async (req, res) => {

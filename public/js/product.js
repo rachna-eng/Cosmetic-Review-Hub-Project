@@ -10,7 +10,8 @@
         alert("Added to wishlist");
       },
       error: function (xhr, textStatus, error) {
-        alert("Failed to add to wishlist");
+        alert("To save your product to wishlist, Login first");
+        window.location.href = "/login";
       },
     });
   });

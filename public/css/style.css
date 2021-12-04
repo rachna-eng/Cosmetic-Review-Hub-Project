@@ -38,7 +38,7 @@ body a {
 }
 .logo {
   float: left;
-  margin-right: 2%;
+  margin-right: 0%;
 }
 .menu {
   float: left;
@@ -2853,5 +2853,24 @@ image-tools.show-on-hover {
   color: #fff;
 }
 .red-color {
+  color: red;
+}
+
+.box-btn {
+  float: left;
+  background: transparent;
+  font-size: 53px;
+  color: #4d4e56;
+  font-weight: 300;
+  cursor: pointer;
+  border-radius: 2px;
+  line-height: 0.5;
+  border: none;
+  outline: none;
+}
+.glyphicon {
+  transition: color 0.3s linear;
+}
+.box-btn .red {
   color: red;
 }
