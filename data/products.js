@@ -13,16 +13,75 @@ async function getAllProducts() {
   return allProducts.map(validate.convertObjId);
 }
 
+async function progressbar(id) {
+  let count5 = 0,
+    count4 = 0,
+    count3 = 0,
+    count2 = 0,
+    count1 = 0,
+    bar5 = 0,
+    bar4 = 0,
+    bar3 = 0,
+    bar2 = 0,
+    bar1 = 0;
+
+  if (!validate.validString(id)) throw "Product id must be a valid string.";
+  let objId = ObjectId(id.trim());
+  const prodCollection = await products();
+
+  let prod = await prodCollection.findOne({ _id: objId });
+
+  if (!prod) throw `No Product found with id=${id}.`;
+
+  prod.reviews.sort(function (a, b) {
+    return b.rating - a.rating;
+  });
+  prod.reviews.forEach((review) => {
+    if (review.rating == 5) count5 += 1;
+    if (review.rating == 4) count4 += 1;
+    if (review.rating == 3) count3 += 1;
+    if (review.rating == 2) count2 += 1;
+    if (review.rating == 1) count1 += 1;
+  });
+
+  if (prod.reviews.length != 0) {
+    bar5 = (count5 / prod.reviews.length) * 100;
+    bar4 = (count4 / prod.reviews.length) * 100;
+    bar3 = (count3 / prod.reviews.length) * 100;
+    bar2 = (count2 / prod.reviews.length) * 100;
+    bar1 = (count1 / prod.reviews.length) * 100;
+  }
+
+  // Convert _id field to string before returning
+
+  progress = {
+    a: count5,
+    b: count4,
+    c: count3,
+    d: count2,
+    e: count1,
+    bar5: bar5,
+    bar4: bar4,
+    bar3: bar3,
+    bar2: bar2,
+    bar1: bar1,
+  };
+  return progress;
+}
 async function getProductById(id) {
   if (!validate.validString(id)) throw "Product id must be a valid string.";
   let objId = ObjectId(id.trim());
   const prodCollection = await products();
-  const prod = await prodCollection.findOne({ _id: objId });
+
+  let prod = await prodCollection.findOne({ _id: objId });
 
   if (!prod) throw `No Product found with id=${id}.`;
+  prod.reviews.sort(function (a, b) {
+    return b.likes - a.likes;
+  });
 
-  // Convert _id field to string before returning
-  return validate.convertObjId(prod);
+  prod = validate.convertObjId(prod);
+  return prod;
 }
 
 async function createProduct(
@@ -197,14 +256,17 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
 
     //new
 
-    const prod = await getProductById(prodId.toString());
+    let productmetrix = await getProductById(prodId.toString());
     let overallRating = 0;
-    prod.reviews.forEach((review) => {
+
+    let product = productmetrix.prod;
+
+    product.reviews.forEach((review) => {
       overallRating = overallRating + review.rating;
     });
-    if (prod.reviews.length != 0)
-      overallRating = overallRating / prod.reviews.length;
-
+    if (product.reviews.length != 0) {
+      overallRating = overallRating / product.reviews.length;
+    }
     const ratingUpdateInfo = await prodCollection.updateOne(
       { _id: prodId },
       { $set: { overallRating: overallRating } }
@@ -212,7 +274,7 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
     if (ratingUpdateInfo.matchedCount === 0)
       throw "Could not update overall rating";
 
-    const product = await getProductById(prodId.toString());
+    product = await getProductById(prodId.toString());
     return product;
   }
 }
@@ -224,4 +286,5 @@ module.exports = {
   updateProduct,
   remove,
   addToreviews,
+  progressbar,
 };

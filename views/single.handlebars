@@ -260,7 +260,7 @@
                 <span class="dropdown-wrapper" aria-hidden="true"></span>
               </span>
             </div>
-            {{!-- <div class="row">
+            <div class="row">
               <div class="col-md-6">
                 <table class="stars-counters">
                   <tbody>
@@ -279,12 +279,12 @@
                           <div class="fit-progressbar-background">
                             <span
                               class="progress-fill"
-                              style="width: 97.2973%;"
+                              style="width: {{status.bar5}}%;"
                             ></span>
                           </div>
                         </div>
                       </td>
-                      <td class="star-num">(36)</td>
+                      <td class="star-num">({{status.a}})</td>
                     </tr>
                     <tr class="">
                       <td>
@@ -301,12 +301,12 @@
                           <div class="fit-progressbar-background">
                             <span
                               class="progress-fill"
-                              style="width: 2.2973%;"
+                              style="width: {{status.bar4}}%;"
                             ></span>
                           </div>
                         </div>
                       </td>
-                      <td class="star-num">(2)</td>
+                      <td class="star-num">({{status.b}})</td>
                     </tr>
                     <tr class="">
                       <td>
@@ -323,12 +323,12 @@
                           <div class="fit-progressbar-background">
                             <span
                               class="progress-fill"
-                              style="width: 0;"
+                              style="width: {{status.bar3}}%;"
                             ></span>
                           </div>
                         </div>
                       </td>
-                      <td class="star-num">(0)</td>
+                      <td class="star-num">({{status.c}})</td>
                     </tr>
                     <tr class="">
                       <td>
@@ -345,12 +345,12 @@
                           <div class="fit-progressbar-background">
                             <span
                               class="progress-fill"
-                              style="width: 0;"
+                              style="width: {{status.bar2}}%;"
                             ></span>
                           </div>
                         </div>
                       </td>
-                      <td class="star-num">(0)</td>
+                      <td class="star-num">({{status.d}})</td>
                     </tr>
                     <tr class="">
                       <td>
@@ -367,23 +367,24 @@
                           <div class="fit-progressbar-background">
                             <span
                               class="progress-fill"
-                              style="width: 0;"
+                              style="width: {{status.bar1}}%;"
                             ></span>
                           </div>
                         </div>
                       </td>
-                      <td class="star-num">(0)</td>
+                      <td class="star-num">({{status.e}})</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div class="col-md-6">
               </div>
-            </div> --}}
+            </div>
           </div>
 
           <div class="review-list">
           {{#each product.reviews}}
+          
             {{!-- <ul>
               <li>
                 <div class="d-flex">
