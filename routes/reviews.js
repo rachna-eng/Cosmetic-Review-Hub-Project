@@ -42,91 +42,90 @@ router.get("/", async (req, res) => {
 });
 
 //create review
-router.post("/:productId", async (req, res) => {
+// router.post("/:productId", async (req, res) => {
 
-    const productId = req.params.productId;
-    const { title, reviewBody, rating } =
-        req.body;
-    if (!productId) {
-        res.status(400).json({ error: "You must provide productId" });
-        return;
-    }
-    if (!title) {
-        res.status(400).json({ error: "You must provide review title" });
-        return;
-    }
-    if (!reviewBody) {
-        res.status(400).json({ error: "You must provide review Body" });
-        return;
-    }
-    if (!rating) {
-        res.status(400).json({ error: "You must provide  rating" });
-        return;
-    }
+//     const productId = req.params.productId;
+//     const { title, reviewBody, rating } =
+//         req.body;
+//     if (!productId) {
+//         res.status(400).json({ error: "You must provide productId" });
+//         return;
+//     }
+//     if (!title) {
+//         res.status(400).json({ error: "You must provide review title" });
+//         return;
+//     }
+//     if (!reviewBody) {
+//         res.status(400).json({ error: "You must provide review Body" });
+//         return;
+//     }
+//     if (!rating) {
+//         res.status(400).json({ error: "You must provide  rating" });
+//         return;
+//     }
 
-    try {
-        const review = await reviewsData.createReview(
-            //login module failure to work now
-            // productId, req.session.user._id.toString(), req.session.user.userName,CurentTimeStr(), title, reviewBody, rating, 1
-            productId, "61a6d64bc9c95f0bec0cd395", "rachshah2", CurentTimeStr(), title, reviewBody, rating, 1
-        );
-        res.json(review);
-    } catch (e) {
-        console.log(e);
-        res.status(400).send({ error: e });
-    }
-});
+//     try {
+//         const review = await reviewsData.createReview(
+//             //login module failure to work now
+//             productId, req.session.user._id.toString(), req.session.user.userName,CurentTimeStr(), title, reviewBody, rating, 1
+//         );
+//         res.json(review);
+//     } catch (e) {
+//         console.log(e);
+//         res.status(400).send({ error: e });
+//     }
+// });
 //update review by review id
-router.put("/:id", async (req, res) => {
-    const { id, dateOfReview, title, reviewBody, rating, likes } =
-        req.body;
-    if (!id) {
-        res.status(400).json({ error: "You must provide review id" });
-        return;
-    }
-    if (!dateOfReview) {
-        res.status(400).json({ error: "You must provide dateOfReview" });
-        return;
-    }
-    if (!title) {
-        res.status(400).json({ error: "You must provide provide title" });
-        return;
-    }
-    if (!reviewBody) {
-        res.status(400).json({ error: "You must provide review body" });
-        return;
-    }
-    if (!rating) {
-        res.status(400).json({ error: "You must provide rating" });
-        return;
-    }
-    if (!likes) {
-        res.status(400).json({ error: "You must provide review likes" });
-        return;
-    }
-    try {
-        const review = await reviewsData.updateReview(
-            id,
-            dateOfReview,
-            title,
-            reviewBody,
-            rating,
-            likes
-        );
-        res.json(review);
-    } catch (e) {
-        res.status(404).send({ error: e });
-    }
-});
+// router.put("/:id", async (req, res) => {
+//     const { id, dateOfReview, title, reviewBody, rating, likes } =
+//         req.body;
+//     if (!id) {
+//         res.status(400).json({ error: "You must provide review id" });
+//         return;
+//     }
+//     if (!dateOfReview) {
+//         res.status(400).json({ error: "You must provide dateOfReview" });
+//         return;
+//     }
+//     if (!title) {
+//         res.status(400).json({ error: "You must provide provide title" });
+//         return;
+//     }
+//     if (!reviewBody) {
+//         res.status(400).json({ error: "You must provide review body" });
+//         return;
+//     }
+//     if (!rating) {
+//         res.status(400).json({ error: "You must provide rating" });
+//         return;
+//     }
+//     if (!likes) {
+//         res.status(400).json({ error: "You must provide review likes" });
+//         return;
+//     }
+//     try {
+//         const review = await reviewsData.updateReview(
+//             id,
+//             dateOfReview,
+//             title,
+//             reviewBody,
+//             rating,
+//             likes
+//         );
+//         res.json(review);
+//     } catch (e) {
+//         res.status(404).send({ error: e });
+//     }
+// });
 //delete review by review id
-router.delete("/:id", async (req, res) => {
-    try {
-        const reviewId = await reviewsData.remove(req.params.id);
-        res.json({ reviewId: reviewId, deleted: true });
-    } catch (e) {
-        res.status(404).send({ error: e });
-    }
-});
+// router.delete("/:id", async (req, res) => {
+//     try {
+//         const reviewId = await reviewsData.remove(req.params.id);
+//         res.json({ reviewId: reviewId, deleted: true });
+//     } catch (e) {
+//         res.status(404).send({ error: e });
+//     }
+// });
 
 //comment ops  
 //get comments by review id

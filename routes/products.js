@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const productData = data.products;
-
+const reviewsData = data.reviews;
 
 router.get("/", async (req, res) => {
   try {
@@ -176,6 +176,14 @@ router.post("/review/:prodId", async (req, res) => {
     return;
   }
   //add to review database then from that add to product array
+  try{
+    await reviewsData.createReview(
+    req.params.prodId, req.session.user._id.toString(), req.session.user.userName,new Date().toUTCString(), title, reviewBody, rating, 1
+  );
+  } catch (e) {
+    console.log(e);
+    res.status(400).send({ error: e });
+  }
   try {
     await productData.addToreviews(
       req.session.user._id.toString(),
