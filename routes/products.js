@@ -29,9 +29,8 @@ router.get("/:id", async (req, res) => {
 
 router.post("/search", async (req, res) => {
   try {
-  
     let searchTerm = req.body;
-    
+
     const productList = await productData.searchProducts(searchTerm);
     res.render("product/products", { products: productList, user: req.session.user });
   } catch (e) {

@@ -147,10 +147,13 @@ async function updateProduct(
   return await getProductById(id.toString());
 }
 
-async function searchProducts(keyword) {
+async function searchProducts(searchTerm) {
   const prodCollection = await products();
 
-  const prod = await prodCollection.find( { $text: { $search: keyword} },{ score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } )
+  prodCollection.createIndex( { productName: "text", brand: "text", category: "text" } )
+
+  keyword = searchTerm.search;
+  const prod = await prodCollection.find({ $text: { $search: keyword} }).toArray(); //,{ score: { $meta: "textScore" } }).sort( { score: { $meta: "textScore" } } )
 
   // Convert _id field to string before returning
   return prod.map(validate.convertObjId);
