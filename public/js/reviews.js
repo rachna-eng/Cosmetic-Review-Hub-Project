@@ -85,7 +85,7 @@
       },
     });
   });
-  //add comment for a review
+  //add comment input tag for a review
   $(".comment-btn").click(function(e) {
     e.preventDefault();
     $(".comment-group").remove();
@@ -112,11 +112,11 @@
     $.ajax({
       type: "POST",
       //how to get reviewId!!!!
-      url: "/reviews/comment/:reviewId",
+      url: "/reviews/comment/61a89830bbd6b739d0049814",
       contentType: "application/json",
       data: JSON.stringify({
         commentBody: commentBody,
-        reviewId: "",
+        reviewId: "61a89830bbd6b739d0049814",
       }),
       success: function (data) {
         alert("comment added Suceessfully");
@@ -128,5 +128,28 @@
       },
     });
   });
+  $(".like-btn").click(function(e) {
+    e.preventDefault();
+    //need get review id
+    //$(this)
 
+    $.ajax({
+      type: "PUT",
+      //how to get reviewId!!!!
+      url: "/reviews/likes/61a89830bbd6b739d0049814",
+      contentType: "application/json",
+      data: JSON.stringify({
+      }),
+      success: function (data) {
+        alert("review like Suceessfully");
+        // window.location.reload();
+      },
+      error: function (xhr, textStatus, error) {
+        alert("Login to Add Review, FILL ALL DETAILS, Failed to Add");
+        console.log(error)
+      },
+    });
+
+
+  });
 })(window.jQuery);

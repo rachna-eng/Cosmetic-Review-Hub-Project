@@ -112,12 +112,12 @@ let exportedMethods = {
 
     return `${delreview._id}`;
   },
-  async updateReview(
+  async updateReview(//not use likes value
     id, dateOfReview, title, reviewBody, rating, likes
   ) {
     if (!validate.validString(id)) throw "Review id must be a valid string.";
     if (!validate.validString(dateOfReview))
-      throw "Review  picture path Invalid";
+      throw "dateOfReview  must be a valid string.";
     if (!validate.validString(title))
       throw "Title name must be a valid string.";
     if (!validate.validString(reviewBody))
@@ -132,7 +132,7 @@ let exportedMethods = {
       title: title.trim(),
       reviewBody: reviewBody.trim(),
       rating: rating,
-      likes: likes,
+      likes: review.likes,
       comments: review.comments
     };
 
@@ -148,7 +148,23 @@ let exportedMethods = {
 
     return await getReviewById(id.toString());
   },
+  async raiseReviewLike(id) {
+    if (!validate.validString(id)) throw "Review id must be a valid string.";
 
+    const reviewCollection = await reviews();
+
+    id = ObjectId(id);
+
+    const updatedInfo = await reviewCollection.updateOne(
+      { _id: id },
+      {"$inc":{"likes":1}}
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Could not inc likes";
+    }
+
+    return;
+  },
 
   //Comments ops
   async createComment(reviewId, userId, userName, commentBody) {
