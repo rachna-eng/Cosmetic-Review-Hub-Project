@@ -40,7 +40,20 @@ router.get("/", async (req, res) => {
         res.status(404).json({ error: "Review not found" });
     }
 });
-
+//click like review
+router.put("/likes/:id", async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        res.status(400).json({ error: "You must provide review id" });
+        return;
+    }
+    try {
+        await reviewsData.raiseReviewLike(id);
+        res.status(200).send();
+    } catch (e) {
+        res.status(404).send({ error: e });
+    }
+});
 //create review
 // router.post("/:productId", async (req, res) => {
 
@@ -149,10 +162,8 @@ router.get('/comment/:reviewId', async (req, res) => {
 })
 //create one comment for review
 router.post('/comment/:reviewId', async (req, res) => {
-
     const { commentBody } = req.body;
     const reviewId = req.params.reviewId;
-
     if (!reviewId) {
         res.status(400).json({ error: "You must provide review id" });
         return;
@@ -167,6 +178,7 @@ router.post('/comment/:reviewId', async (req, res) => {
             reviewId, req.session.user._id.toString(), req.session.user.userName, commentBody);
         res.json(newReview);
     } catch (e) {
+        console.log(e)
         res.status(400).json({ error: e });
     }
 })
