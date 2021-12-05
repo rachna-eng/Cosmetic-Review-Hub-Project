@@ -2,6 +2,20 @@ const productsRoutes = require("./products.js");
 const reviewsRoutes = require("./reviews.js");
 const usersRoutes = require("./users.js");
 const usersData = require("../data").users;
+const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/uploads");
+  },
+  filename: function (req, file, cb) {
+    const splitted = file.originalname.split(".");
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + "." + splitted[splitted.length - 1]
+    );
+  },
+});
+var uploadSingle = multer({ storage: storage }).single("image");
 
 const constructorMethod = (app) => {
   app.use("/products", productsRoutes);
@@ -10,6 +24,15 @@ const constructorMethod = (app) => {
 
   app.get("/", (req, res) => {
     return res.render("index", { user: req.session.user });
+  });
+
+  app.post("/uploadSingle", (req, res) => {
+    uploadSingle(req, res, function (err) {
+      if (err) {
+        return res.status(500).json("Failed to upload image");
+      }
+      return res.json("/" + req.file.destination + "/" + req.file.filename);
+    });
   });
 
   // app.get("/logout", (req, res) => {
@@ -25,6 +48,7 @@ const constructorMethod = (app) => {
       );
       res.redirect("/");
     }
+    res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
     req.session.destroy();
     res.redirect("/");
   });

@@ -1,7 +1,18 @@
 <div class="container rounded bg-white mt-5 mb-5">
+     <form id="form-user-new" action="/users/signup" method="post">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="/public/uploads/profile.jpg"><br><span class="font-weight-bold"><strong>{{users.firstName}}</strong></span>:<br> <span class="text-black-50">{{users.email}}</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="/public/uploads/profile.jpg"></div>
+        
+        
+            <input
+            id="imageUpload"
+            name="imageUpload"
+            accept="image/*"
+            class="form-css"
+            type="file"
+            id="formFileMultiple"
+          />
         </div>
         {{!-- <a href="/">sign up here</a> --}}
         <div class="col-md-5 border-right">
@@ -14,14 +25,14 @@
                     <br>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" ></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" placeholder="last name" ></div>
+                    <div class="col-md-6"><label class="labels">Name</label><input type="text" id="firstName" name="firstName" class="form-control" placeholder="first name" ></div>
+                    <div class="col-md-6"><label class="labels">Surname</label><input type="text"  id="lastName" name="lastName"  class="form-control" placeholder="last name" ></div>
                 </div>
                 <div class="row mt-3"> 
-                    <div class="col-md-12"><label class="labels">UserName</label><input type="text" class="form-control" placeholder="enter UserName" ></div>
-                    <div class="col-md-12"><label class="labels">Password</label><input type="text" class="form-control" placeholder="enter Password" ></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" ></div>
-                    <div class="col-md-12"><label class="labels">Makeup Level</label><input type="text" class="form-control" placeholder="enter makeup level"></div>
+                    <div class="col-md-12"><label class="labels">UserName</label><input type="text"  id="userName" name ="userName"class="form-control" placeholder="enter UserName" ></div>
+                    <div class="col-md-12"><label class="labels">Password</label><input type="text" id="password" name= "password"  class="form-control" placeholder="enter Password" ></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" id="email" name="email"  class="form-control" placeholder="enter email id" ></div>
+                    <div class="col-md-12"><label class="labels">Makeup Level</label><input type="text" id="makeupLevel" name="makeupLevel" class="form-control" placeholder="enter makeup level"></div>
             
                     
                    
@@ -40,4 +51,6 @@
     </div>
 </div>
 </div>
+</form>
 </div>
+<script src="/public/js/users.js"></script>

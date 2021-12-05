@@ -1,9 +1,21 @@
 <div class="container rounded bg-white mt-5 mb-5">
-    <form action="/users/profile" method="post">
+   
     <div class="row">
+         <form id="form-user-edit" action="/users/profile" method="post">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src={{users.userImage}}><br><span class="font-weight-bold"><strong>{{users.firstName}}</strong></span>:<br> <span class="text-black-50">{{users.email}}</span><span> </span></div>
-        </div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src={{users.userImage}}><br><span class="font-weight-bold"><strong>{{users.firstName}}:</strong></span><span class="text-black-50">{{users.email}}</span><span> </span></div>
+      
+        <br>
+        
+            <input
+            id="imageUpload"
+            name="imageUpload"
+            accept="image/*"
+            class="form-css"
+            type="file"
+            id="formFileMultiple"
+          />
+          </div>
         {{!-- <a href="/">sign up here</a> --}}
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -15,14 +27,14 @@
                     <br>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" name="firstName" class="form-control" placeholder="first name" value = {{users.firstName}}></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" name="lastName" class="form-control" placeholder="last name" value={{users.lastName}} ></div>
+                    <div class="col-md-6"><label class="labels">Name</label><input type="text" id="firstName" name="firstName" class="form-control" placeholder="first name" value = {{users.firstName}}></div>
+                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" id="lastName" name="lastName" class="form-control" placeholder="last name" value={{users.lastName}} ></div>
                 </div>
                 <div class="row mt-3"> 
-                    <div class="col-md-12"><label class="labels">UserName</label><input type="text" name ="userName" class="form-control" placeholder="enter UserName" value={{users.userName}}></div>
-                    <div class="col-md-12"><label class="labels">Password</label><input type="text" name= "password" class="form-control" placeholder="enter New Password" value={{users.Password}}></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" name="email" class="form-control" placeholder="enter email id" value={{users.email}}></div>
-                    <div class="col-md-12"><label class="labels">Makeup Level</label><input type="text" name="makeupLevel" class="form-control" placeholder="enter makeup level" value={{users.makeupLevel}}></div>
+                    <div class="col-md-12"><label class="labels">UserName</label><input type="text" id="userName" name ="userName" class="form-control" placeholder="enter UserName" value={{users.userName}}></div>
+                    <div class="col-md-12"><label class="labels">Password</label><input type="text" id="password" name= "password" class="form-control" placeholder="enter New Password" value={{users.Password}}></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" id="email" name="email" class="form-control" placeholder="enter email id" value={{users.email}}></div>
+                    <div class="col-md-12"><label class="labels">Makeup Level</label><input type="text" id="makeupLevel" name="makeupLevel" class="form-control" placeholder="enter makeup level" value={{users.makeupLevel}}></div>
             
                     
                    
@@ -34,12 +46,30 @@
                 <br>
                 <br>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+               </form>
                 <br>
             </div>
+           
         </div>
-       
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br>
+    
+    <div class="col-md-3 border-right"> 
+        <div class="mt-5 text-center">
+            
+        </div>
     </div>
 </div>
-</div>
 </form>
+
+<form id="form-user-delete" name="form-user-delete" method="post" action="/users/delete/{{user._id}}" >
+            <button class="btn btn-primary profile-button" type="submit">Delete Profile</button>
+            </form>
 </div>
+
+</div>
+<script src="/public/js/users.js"></script>

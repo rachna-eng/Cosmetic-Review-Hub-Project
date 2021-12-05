@@ -83,14 +83,35 @@
           <div class="single_right">
             <h3>{{product.productName}}</h3>
        
-            <p class="m_10"><strong>Brand: </strong>{{product.brand}}</p>
+            <p class="m_10"><strong>Brand:</strong>{{product.brand}}</p>
             
             <p class="m_10"><strong>Category</strong><br>{{product.category}}</p>
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<button type="submit" class="box-btn"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
+
+{{!-- {{#if (eq model.status "complete")}}  {{! works! }}
+  OK
+{{/if}} --}}
+
+{{!-- {{#each product.likes}}
+{{!-- <p>{{this}}</p>
+
+
+
+<p> {{user._id}}</p> --}}
+{{!-- {{#if (user._id)}} --}}
+		<button id="like" type="submit" class="box-btn" data-productid="{{product._id}}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
+            <br>				    	
+{{!-- {{else}}
+    <button id="like" type="submit" class="box-btn" data-productid="{{product._id}}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
+            <br> --}}
+{{!-- {{/if}}
+{{/each}} --}}
+{{!-- <button id="like" type="submit" class="box-btn" data-productid="{{product._id}}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
             <br>
-           
+            --}}
+            <input type="hidden" id="userID" value="{{flag}}">
+            {{!-- <input type="hidden" id="productIDLikes" value="{{product.likes}}"> --}}
             <div class="btn_form">
               <form>
                 <label for="box-btn">Like</label>
@@ -539,5 +560,59 @@
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="/public/js/addreview.js"></script>
+<script>
+   
+	$(function($) {
+
+   
+		
+  $(document).on('click', '.box-btn', function(event) {
+    //$(this).find('.glyphicon').toggleClass('red').toggleClass('glyphicon-heart-empty glyphicon-heart');
+    var selected ="false";
+  //Checking if the product is liked
+	  if ( $(this).find('.glyphicon').hasClass('red')){
+		       selected = true;
+    }		  
+	  //Adding productID to the URL
+    var productIDUrl = "/products/likes/"+ $(this).data("productid");	
+		$.ajax({
+		type: "POST",
+		url: productIDUrl,
+		data: {},
+		success: function (data) {
+    //Unlike the product if already liked   
+		if(selected  ==  true){
+           $("#like").find('.glyphicon').addClass('glyphicon-heart-empty');
+           $("#like").find('.glyphicon').removeClass('red glyphicon-heart');
+
+    }
+    else{
+      //Liking the product
+      $("#like").find('.glyphicon').removeClass('glyphicon-heart-empty');
+      $("#like").find('.glyphicon').addClass('red glyphicon-heart');
+    }
+			
+		},
+		error: function (xhr, textStatus, error) {
+			alert("Login to Add Like, Failed to Add Like");
+		},
+		});
+
+	
+   	
+  });
+  
+  //productIDLikes
+if($("#userID").val() == "true"){
+  $("#like").find('.glyphicon').removeClass('glyphicon-heart-empty');
+  $("#like").find('.glyphicon').addClass('red glyphicon-heart ');
+}
+
+});
+
+</script>
+

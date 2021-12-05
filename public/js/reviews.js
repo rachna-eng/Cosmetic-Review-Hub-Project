@@ -80,7 +80,7 @@
         window.location.reload();
       },
       error: function (xhr, textStatus, error) {
-        alert("Login to Add Review, FILL ALL DETAILS, Failed to Add");
+        alert("Login to Add review, fILL ALL DETAILS, Failed to Add");
       },
     });
   });

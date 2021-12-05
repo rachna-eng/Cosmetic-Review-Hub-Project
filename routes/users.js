@@ -189,10 +189,14 @@ router.put("/users", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.post("/delete/:id", async (req, res) => {
   try {
-    const userId = await userData.remove(req.params.id);
-    res.json({ userId: userId, deleted: true });
+    
+    const user = await userData.remove(req.params.id);
+    // res.json({ userId: userId, deleted: true });
+   
+    req.session.destroy();
+    res.redirect("/login");
   } catch (e) {
     res.status(404).send({ error: e });
   }

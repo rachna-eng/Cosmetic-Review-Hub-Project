@@ -123,7 +123,7 @@ async function createProduct(
     price: price,
     category: category.trim(),
     overallRating: 0,
-    likes: 0,
+    likes: [],
     reviews: [],
   };
 
@@ -279,6 +279,37 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
   }
 }
 
+async function addToLikes(userId, prodId) {
+  const prodCollection = await products();
+  const prod = await getProductById(prodId);
+  let flag = false;
+  prod.likes.forEach((e) => {
+    if (e == userId) {
+      flag = true;
+    }
+  });
+  prodId = ObjectId(prodId);
+  if (!flag) {
+    const updatedInfo = await prodCollection.updateOne(
+      { _id: prodId },
+      { $push: { likes: userId } }
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Login to Like the product";
+    }
+  }
+  else{
+    const updatedInfo = await prodCollection.updateOne(
+      { _id: prodId },
+      { $pull: { likes: userId } }
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Login to Like the product";
+    }
+
+  }
+}
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -287,4 +318,5 @@ module.exports = {
   remove,
   addToreviews,
   progressbar,
+  addToLikes,
 };

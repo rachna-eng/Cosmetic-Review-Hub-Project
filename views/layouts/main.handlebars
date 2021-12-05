@@ -84,13 +84,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 					});
 				</script>
-<script>
-	$(function($) {
-  $(document).on('click', '.box-btn', function(event) {
-    $(this).find('.glyphicon').toggleClass('red').toggleClass('glyphicon-heart-empty glyphicon-heart');
-  });
-});
-</script>
 
 
 <!--end slider -->
@@ -138,8 +131,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					 </div>
 					 <div class="menu">
 						  <a class="toggleMenu" href="#"><img  src="public/images/nav.png" alt="" /></a>
+						
 						    <ul class="nav" id="nav">
 						    	<li><a href="/products">Products</a></li>
+
 								{{#if user}}
 						    	<li><a href="/users">Profile</a></li>
 								{{else}}
