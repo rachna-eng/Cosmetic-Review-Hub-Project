@@ -7,7 +7,11 @@ const { ObjectId } = require("mongodb");
 
 async function getAllProducts() {
   const prodCollection = await products();
-  const allProducts = await prodCollection.find({}).toArray();
+  //sorting Products by Number of Likes
+  const allProducts = await prodCollection
+    .find({})
+    .sort({ likes: -1 })
+    .toArray();
 
   // Change all _id values to strings
   return allProducts.map(validate.convertObjId);
@@ -210,6 +214,27 @@ async function remove(id) {
   return `${delprod._id}`;
 }
 
+//REVIEWS
+
+async function getReviewById(id) {
+  if (!validate.validString(id)) throw "Id must be a valid string.";
+  let objId = ObjectId(id.trim());
+
+  const prodCollection = await products();
+
+  let prodRev = await prodCollection.findOne({ "reviews._id": objId });
+
+  if (prodRev == null || prodRev.reviews == null)
+    throw "No product with that id";
+  let review = await prodCollection.findOne(
+    { "reviews._id": objId },
+    { projection: { _id: 0, "reviews.$": 1 } }
+  );
+  review = prodRev.reviews._id;
+  review._id = review._id.toString();
+  return review;
+}
+
 async function addToreviews(userId, prodId, title, reviewBody, rating) {
   const user = await usersData.getUserById(userId.toString());
   let date = new Date().toUTCString();
@@ -234,6 +259,7 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
     const prodCollection = await products();
     // const prod = await getProductById(prodId);
     const addreview = {
+      _id: ObjectId(),
       productId: prodId,
       userId: userId,
       userName: user.userName,
@@ -242,7 +268,7 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
       title: title,
       reviewBody: reviewBody,
       rating: rating,
-      likes: 0,
+      likes: [],
       Comments: [],
     };
     prodId = ObjectId(prodId);
@@ -256,10 +282,8 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
 
     //new
 
-    let productmetrix = await getProductById(prodId.toString());
+    let product = await getProductById(prodId.toString());
     let overallRating = 0;
-
-    let product = productmetrix.prod;
 
     product.reviews.forEach((review) => {
       overallRating = overallRating + review.rating;
@@ -279,6 +303,55 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
   }
 }
 
+//review like
+async function addToReviewLikes(userId, revId) {
+  const prodCollection = await products();
+  const allProducts = await prodCollection.find({}).toArray();
+  let prodid = "";
+  let flag = false;
+  allProducts.forEach((e) => {
+    if (e.reviews.length != 0) {
+      e.reviews.forEach((e1) => {
+        if (e1._id == revId) {
+          prodid = e1.productId;
+        }
+      });
+    }
+  });
+
+  let prod = await getProductById(prodid);
+  let cnt = -1;
+  let index = 0;
+  prod.reviews.forEach((rev) => {
+    cnt += 1;
+    rev.likes.forEach((e) => {
+      if (e == userId) {
+        flag = true;
+        index = cnt;
+      }
+    });
+  });
+
+  revId = ObjectId(revId);
+  if (!flag) {
+    prod.reviews[index].likes.push(userId);
+  
+    let prodId = ObjectId(prod._id);
+    const updatedInfo = await prodCollection.updateOne(
+      { _id: prodId },
+      { $set: { reviews: prod.reviews } }
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Could not modify review";
+    }
+   // return await getProductById(prodId.toString());
+  }
+    
+   
+
+}
+
+//Product like
 async function addToLikes(userId, prodId) {
   const prodCollection = await products();
   const prod = await getProductById(prodId);
@@ -297,8 +370,7 @@ async function addToLikes(userId, prodId) {
     if (updatedInfo.modifiedCount === 0) {
       throw "Login to Like the product";
     }
-  }
-  else{
+  } else {
     const updatedInfo = await prodCollection.updateOne(
       { _id: prodId },
       { $pull: { likes: userId } }
@@ -306,7 +378,6 @@ async function addToLikes(userId, prodId) {
     if (updatedInfo.modifiedCount === 0) {
       throw "Login to Like the product";
     }
-
   }
 }
 
@@ -319,4 +390,6 @@ module.exports = {
   addToreviews,
   progressbar,
   addToLikes,
+  getReviewById,
+  addToReviewLikes,
 };

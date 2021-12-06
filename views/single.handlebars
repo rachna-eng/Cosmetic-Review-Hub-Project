@@ -89,29 +89,12 @@
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-{{!-- {{#if (eq model.status "complete")}}  {{! works! }}
-  OK
-{{/if}} --}}
 
-{{!-- {{#each product.likes}}
-{{!-- <p>{{this}}</p>
-
-
-
-<p> {{user._id}}</p> --}}
-{{!-- {{#if (user._id)}} --}}
 		<button id="like" type="submit" class="box-btn" data-productid="{{product._id}}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
             <br>				    	
-{{!-- {{else}}
-    <button id="like" type="submit" class="box-btn" data-productid="{{product._id}}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
-            <br> --}}
-{{!-- {{/if}}
-{{/each}} --}}
-{{!-- <button id="like" type="submit" class="box-btn" data-productid="{{product._id}}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button>
-            <br>
-            --}}
+
             <input type="hidden" id="userID" value="{{flag}}">
-            {{!-- <input type="hidden" id="productIDLikes" value="{{product.likes}}"> --}}
+            <input type="hidden" id="revlikeID" value="{{flag1}}">
             <div class="btn_form">
               <form>
                 <label for="box-btn">Like</label>
@@ -168,9 +151,6 @@
               <a href="{{this}}">Buy here</a>
               <br>
               {{/each}}
-          {{!-- {{#each product.productLinks}} --}}
-            
-            {{!-- {{/each}} --}}
           </div>
           <div class="clear"> </div>
         </div>
@@ -421,36 +401,41 @@
           <div class="review-list">
           {{#each product.reviews}}
           
-            
-            <div class="card">
-	    <div class="card-body">
-	        <div class="row">
-        	    <div class="col-md-2">
+         <div class="card">
+	        <div class="card-body review-blog">
+	            <div class="row">
+        	      <div class="col-md-2">
         	        <img src={{this.userImage}} class="img img-rounded img-fluid"/>
         	        <p class="text-secondary text-center">{{this.date}}</p>
         	    </div>
         	    <div class="col-md-10">
         	        <p>
-        	            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{this.userName}}</strong></a>
-        	            
-                        
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+        	            <a class="float-left review-username" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{this.userName}}</strong></a>
+                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
         	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-        	            <span class="float-right" ><i class="rating"><strong>{{this.rating}} </strong></i> <i class="text-warning fa fa-star"></i></span>
-            
-                       
+        	            <span class="float-right" ><i class="rating"><strong>{{this.rating}} </strong></i> <i class="text-warning fa fa-star"></i></span>              
 
-        	       </p>
+        	   </p>
         	       <div class="clearfix"></div>
-        	        <p>{{this.title}}</p>
+                    <p class="review-id" data-productid="{{product._id}}" data-reviewid="{{this._id}}">{{this.title}}</p>
                     <p>{{this.reviewBody}}</p>
         	        <p>
-        	            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-        	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-        	       </p>
+                      {{!-- Added class review-reply as an identifier for the review like button --}}
+        	            <a class="float-right btn btn-outline-primary ml-2 review-reply"> <i class="fa fa-reply"></i> Reply</a>
+                      {{!-- Added class review-like as an identifier for the review like button --}}
+        	            <a id = "revlike"  class="float-right btn text-white btn-danger review-like" data-selected="{{this.islike}}" > <i class="fa fa-heart"></i> <span>Like</span></a>
+        	      {{!-- id = "revlike" --}}
+                 </p>
         	    </div>
+              <div class="reviews-members-footer">
+                                    <div class="total-like" href="#"><i class="glyphicon glyphicon-thumbs-up"></i> 88K</div> 
+                                    
+              </div>
 	        </div>
+            <!-- Start of Comments -->
+           <div class="comment-space">
+
             {{#each this.comments}}
 	        	<div class="card card-inner">
             	    <div class="card-body">
@@ -464,8 +449,8 @@
                     	        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                     	        <p>
                     	            <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
-                    	            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-                    	       </p>
+                    	           <a class="float-right btn text-white btn-danger review-like"> <i class="fa fa-heart"></i> <span>Like</span></a>
+                                  </p>
                     	    </div>
             	        </div>
                          
@@ -473,6 +458,8 @@
               
 	            </div>
                  {{/each}}
+            </div>
+            <!-- End of Comments -->   
 	    </div>
 	</div>
           
@@ -564,13 +551,11 @@
 <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="/public/js/addreview.js"></script>
+
 <script>
    
 	$(function($) {
-
-   
-		
-  $(document).on('click', '.box-btn', function(event) {
+    $(document).on('click', '.box-btn', function(event) {
     //$(this).find('.glyphicon').toggleClass('red').toggleClass('glyphicon-heart-empty glyphicon-heart');
     var selected ="false";
   //Checking if the product is liked
@@ -602,17 +587,126 @@
 		},
 		});
 
-	
+  
+
+
+
    	
   });
   
+
+
+  <!-- Adding Review Like -->
+  $(document).on("click", ".review-like" , function() {
+
+      var ID = $(this).closest(".review-blog").find(".review-id");
+      var likeBtn = $(this);
+         
+       /* alert($(this).closest(".review-blog").find(".review-id strong").html());*/
+     
+       var revid= ID.data("reviewid");
+      // var prodid= ID.data("productid");
+
+    //  "/products/likes/"+ $(this).data("productid");
+ 
+      var likereviewUrl = "/products/reviews/likes/"+revid;	
+          
+        // $(this).find('span').text("Liked");
+        // $(this).removeClass("btn-danger").addClass("btn-dark");
+      //    $(this).data("reviewid");
+        $.ajax({
+            type: 'POST',
+            url: likereviewUrl,
+            data: {},
+            success: function (data) {
+                
+                  likeBtn.find('span').text("Liked");
+                  likeBtn.removeClass("btn-danger").addClass("btn-dark");
+                  
+            },
+              error: function (jqXhr, textStatus, errorMessage) {
+              alert(errorMessage);
+            }
+        });
+
+        });
+  <!-- End of Review Likes -->
+
+  <!-- Showing Comments Dialogue-->
+  $(document).on("click", ".review-reply" , function() {
+        
+        var commentdialogue = $('#commentDialog').detach();
+        $(this).closest(".review-blog").find(".comment-space").append(commentdialogue);
+        $("#commentDialog").show();        
+          
+  });
+  <!-- End of Comments Dialogue-->
+  
+  <!-- Start of Add commnts -->
+   $(document).on("click", ".add-comment" , function() {
+
+    comment = $(this).closest(".comment-area").find(".review-txt-area");
+    commentVal =comment.val();
+    comment.val("");
+        if (commentVal.trim()) {
+      /*$.ajax({
+       type: 'POST',
+       url: add url,
+       data: { myData: 'This is my data.' },
+       success: function (data) {
+        
+        $(this).closest(".review-blog").find(".comment-space").append("<div class='card card-inner'><div class='card-body'><div class='row'><div class='col-md-2'><img src='https://image.ibb.co/jw55Ex/def_face.jpg' class='img img-rounded img-fluid'/><p class='text-secondary text-center'>15 Minutes Ago</p></div><div class='col-md-10'><p><a href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>Maniruzzaman Akash</strong></a></p><p>"+commentVal+"</p><p><a class='float-right btn btn-outline-primary ml-2'>  <i class='fa fa-reply'></i> Reply</a><a class='float-right btn text-white btn-danger review-like'><i class='fa fa-heart'></i> <span>Like</span></a></p></div></div></div></div>");
+        $("#commentDialog").hide();  
+      },
+        error: function (jqXhr, textStatus, errorMessage) {
+          alert(errorMessage);
+      }
+    });*/
+      $(this).closest(".review-blog").find(".comment-space").append("<div class='card card-inner'><div class='card-body'><div class='row'><div class='col-md-2'><img src='https://image.ibb.co/jw55Ex/def_face.jpg' class='img img-rounded img-fluid'/><p class='text-secondary text-center'>15 Minutes Ago</p></div><div class='col-md-10'><p><a href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>Maniruzzaman Akash</strong></a></p><p>"+commentVal+"</p><p><a class='float-right btn btn-outline-primary ml-2'>  <i class='fa fa-reply'></i> Reply</a><a class='float-right btn text-white btn-danger review-like'><i class='fa fa-heart'></i> <span>Like</span></a></p></div></div></div></div>");
+      $("#commentDialog").hide();   
+    }
+    else{
+      alert("Please Enter valid comment");
+    }   
+         
+          
+  });
+   <!-- End of Add commnts -->
+
+
+
+
+
+
+
+
   //productIDLikes
 if($("#userID").val() == "true"){
   $("#like").find('.glyphicon').removeClass('glyphicon-heart-empty');
   $("#like").find('.glyphicon').addClass('red glyphicon-heart ');
 }
+//reviewIDlikes
 
-});
 
+//Start of checking for liked review on page load 
+$(".review-like").each(function(){
+  if($(this).data("selected") == true){
+
+    $(this).find('span').text("Liked");
+    $(this).removeClass("btn-danger").addClass("btn-dark");
+
+  }
+ 
+  });
+//End of liked review on page load
+
+  
+  /*for(){
+    $(".review-like").find('span').text("Liked");
+    $(".review-like").removeClass("btn-danger").addClass("btn-dark");  
+  }*/
+
+
+}); 
 </script>
 

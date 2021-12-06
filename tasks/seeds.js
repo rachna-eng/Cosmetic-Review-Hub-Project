@@ -333,7 +333,7 @@ async function main() {
 
   await users.createUser(
     "rachshah2",
-    "/public/uploads/profile.jpg",
+    "/public/uploads/a.jpg",
     "Rachna",
     "Shah",
     "shopping",
@@ -342,20 +342,48 @@ async function main() {
   );
 
   await users.createUser(
-    "nevil123",
-    "/public/uploads/profile.jpg",
+    "megh123",
+    "/public/uploads/b.jpg",
     "Nevil",
     "Ghelani",
-    "Macbooklover",
+    "shopping",
     "nghelani@gmail.com",
     "Basic"
   );
   await users.createUser(
-    "Lisaand1",
-    "/public/uploads/noImg.jpg",
-    "Lisa",
+    "riya123",
+    "/public/uploads/c.jpg",
+    "riya",
     "Andrew",
-    "mylifelove",
+    "shopping",
+    "l_andrew@gmail.com",
+    "Advanced"
+  );
+  await users.createUser(
+    "rachshah3",
+    "/public/uploads/a.jpg",
+    "Rachna",
+    "Shah",
+    "shopping",
+    "rachshah@gmail.com",
+    "Intermediate"
+  );
+
+  await users.createUser(
+    "megh111",
+    "/public/uploads/b.jpg",
+    "Nevil",
+    "Ghelani",
+    "shopping",
+    "nghelani@gmail.com",
+    "Basic"
+  );
+  await users.createUser(
+    "riya111",
+    "/public/uploads/c.jpg",
+    "riya",
+    "Andrew",
+    "shopping",
     "l_andrew@gmail.com",
     "Advanced"
   );

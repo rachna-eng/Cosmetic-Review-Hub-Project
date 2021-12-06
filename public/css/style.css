@@ -2874,6 +2874,8 @@ image-tools.show-on-hover {
 .box-btn .red {
   color: red;
 }
+
+/* upload pic box */
 .form-css {
   display: block;
   width: 100%;
@@ -2886,4 +2888,21 @@ image-tools.show-on-hover {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* total likes of reviews */
+
+.total-like {
+  border: 1px solid;
+  border-radius: 50px;
+  display: inline-block;
+  font-weight: 500;
+  height: 34px;
+  line-height: 33px;
+  padding: 0 13px;
+  vertical-align: top;
+  color: blue;
+}
+.reviews-members-footer {
+  margin-left: 30px;
 }
