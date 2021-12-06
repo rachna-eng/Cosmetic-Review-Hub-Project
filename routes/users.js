@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
-//const reviewData = review.data;
+const reviewData = data.reviews;
 
 
 router.get("/login", async (req, res) => {
@@ -21,11 +21,15 @@ router.get("/logout", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const users = await userData.getUserById(req.params.id);
-    //const reviews = await reviewData.getReviewByUser(req.params.id);
-    res.render("users/profile", { users: users, user: req.session.user });
+    const reviews = await reviewData.getReviewsByField(null, req.params.id, null, null, null , null);
+    res.render("users/profile", { users: users, reviews: reviews, user: req.session.user });
   } catch (e) {
-    res.status(404).render("landing/error", { error: "Not Found" });
+    res.status(404).render("landing/error", { error: e });
   }
+});
+
+router.get("/private", async (req, res) => {
+  return res.render("users/private", { user: req.session.user }); 
 });
 
 
@@ -113,7 +117,6 @@ router.post("/signup", async (req, res) => {
   
 });
 
-
 router.post("/wishlist/:prodId", async (req, res) => {
   try {
     await userData.addToWishList(
@@ -125,9 +128,9 @@ router.post("/wishlist/:prodId", async (req, res) => {
     return res.status(404).send({ error: e });
   }
 });
-/*
 
-router.post("/profile", async (req, res) => {
+
+router.post("/private", async (req, res) => {
   const {
     userName,
     userImage,
@@ -180,10 +183,10 @@ router.post("/profile", async (req, res) => {
     res.status(400).send({ error: e.message });
   }
 });
-*/
-/*
 
-router.put("/users", async (req, res) => {
+
+
+router.put("/private", async (req, res) => {
   const {
     userName,
     userImage,
@@ -247,7 +250,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-*/
+
 
 
 module.exports = router;

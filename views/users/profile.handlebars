@@ -15,6 +15,15 @@
 
                         <h1 class="card-title h4">Makeup Level</h1>
                         <p>{{users.makeupLevel}}</p>
+                        {{#if user}}
+                        <div class="button1">
+                            <a href="/users/private"><input
+                                type="submit"
+                                name="profile"
+                                value="Edit"
+                            /></a>
+                        </div>
+                        {{/if}}
                     </div>
                     
                 </div>
@@ -26,9 +35,14 @@
                     <h4 class="text-right">Reviews</h4>
                 </div>
                 {{#each reviews}}
-                    <p>{{reviews.title}}</p>
+                    <h5>{{reviews.title}}</h5>
+                    <p>{{reviews.reviewBody}}</p>
+                    <p><a href="products/{{productId}}">See more</a></p>
                 {{/each}}
                 <h4>Wishlist</h4>
+                {{#each user.wishlist}}
+                    <p><a href="products/{{this.prodId}}">{{this.prodName}}</a></p>
+                {{/each}}
             </div>
         </div>
         </div>
