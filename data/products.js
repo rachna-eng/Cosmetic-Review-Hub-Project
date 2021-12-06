@@ -175,7 +175,7 @@ async function searchProducts(searchTerm) {
 //   return `${delprod._id}`;
 // }
 
-async function addToreviews(userId, prodId, title, reviewBody, rating) {
+async function addToreviews(userId, prodId, title, reviewId, reviewBody, rating) {
   const user = await usersData.getUserById(userId.toString());
   let date = new Date().toUTCString();
   if (!title) {
@@ -205,10 +205,11 @@ async function addToreviews(userId, prodId, title, reviewBody, rating) {
       userImage: user.userImage,
       date: date,
       title: title,
+      reviewId: reviewId,
       reviewBody: reviewBody,
       rating: rating,
       likes: 0,
-      Comments: [],
+      comments: [],
     };
     prodId = ObjectId(prodId);
     const updatedInfo = await prodCollection.updateOne(

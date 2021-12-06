@@ -109,14 +109,17 @@
       alert("comment cant not be null")
       return;
     }
+    let reviewId = $(this).parent().parent().parent().parent().parent().find("input.review-id").val();
+    if(reviewId==""){
+      alert("something is wrong!")
+      return;
+    }
     $.ajax({
       type: "POST",
-      //how to get reviewId!!!!
-      url: "/reviews/comment/61a89830bbd6b739d0049814",
+      url: "/reviews/comment/"+reviewId,
       contentType: "application/json",
       data: JSON.stringify({
         commentBody: commentBody,
-        reviewId: "61a89830bbd6b739d0049814",
       }),
       success: function (data) {
         alert("comment added Suceessfully");
@@ -130,13 +133,10 @@
   });
   $(".like-btn").click(function(e) {
     e.preventDefault();
-    //need get review id
-    //$(this)
-
+    let reviewId = $(this).parent().parent().parent().parent().find("input.review-id").val();
     $.ajax({
       type: "PUT",
-      //how to get reviewId!!!!
-      url: "/reviews/likes/61a89830bbd6b739d0049814",
+      url: "/reviews/likes/"+reviewId,
       contentType: "application/json",
       data: JSON.stringify({
       }),
@@ -152,4 +152,7 @@
 
 
   });
+
+
+  
 })(window.jQuery);
