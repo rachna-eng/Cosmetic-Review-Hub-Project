@@ -176,18 +176,14 @@ router.post("/review/:prodId", async (req, res) => {
   }
   //add to review database then from that add to product array
   try{
-    await reviewsData.createReview(
+    const review = await reviewsData.createReview(
     req.params.prodId, req.session.user._id.toString(), req.session.user.userName,new Date().toUTCString(), title, reviewBody, rating, 1
-  );
-  } catch (e) {
-    console.log(e);
-    res.status(400).send({ error: e });
-  }
-  try {
+    );
     await productData.addToreviews(
       req.session.user._id.toString(),
       req.params.prodId,
       title,
+      review._id,
       reviewBody,
       rating
     );
