@@ -178,7 +178,6 @@ router.post('/comment/:reviewId', async (req, res) => {
             reviewId, req.session.user._id.toString(), req.session.user.userName, commentBody);
         res.json(newReview);
     } catch (e) {
-        console.log(e)
         res.status(400).json({ error: e });
     }
 })

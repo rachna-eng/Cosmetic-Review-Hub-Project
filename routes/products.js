@@ -82,7 +82,6 @@ router.post("/", async (req, res) => {
 });
 
 
-
 router.post("/add", async (req, res) => {
   let formBody = req.body;
   productName = req.body.newProdName
@@ -177,17 +176,31 @@ router.post("/review/:prodId", async (req, res) => {
   //add to review database then from that add to product array
   try{
     const review = await reviewsData.createReview(
-    req.params.prodId, req.session.user._id.toString(), req.session.user.userName,new Date().toUTCString(), title, reviewBody, rating, 1
-    );
-    await productData.addToreviews(
-      req.session.user._id.toString(),
-      req.params.prodId,
+      req.params.prodId, 
+      req.session.user._id.toString(), 
+      req.session.user.userName,
+      new Date().toUTCString(), 
       title,
-      review._id,
-      reviewBody,
-      rating
+      reviewBody, 
+      rating,
+      1
     );
-    return res.json("Success");
+    
+    if(!review){
+      throw "Could not add review to collection"
+    }
+    else{
+      const reviewAdded = await productData.addToreviews(req.params.prodId, req.session.user._id, review._id);
+    
+      if(reviewAdded) {
+        return res.json("Success");
+      }
+      else {
+        throw "Could not be added to subdocument"
+      }
+    }
+    
+    
   } catch (e) {
     return res.status(404).send({ error: e });
   }

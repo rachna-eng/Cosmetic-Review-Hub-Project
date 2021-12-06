@@ -73,9 +73,7 @@ let exportedMethods = {
     if (!validate.validString(reviewBody)) throw 'reviewBody must be strings and not empty';
 
     // if(!validate.validRating(rating))    throw "rating value is 0-5";
-    if (!validate.validnum(likes)) throw "likes  must be number and not empty";
-
-
+    if (!validate.validnum(likes)) throw "likes must be number and not empty";
 
     const reviewCollection = await reviews();
     const newReview = {
