@@ -199,6 +199,7 @@ async function remove(id) {
 async function addToWishList(userId, prodId) {
   const userCollection = await users();
   const user = await getUserById(userId);
+  const product = await getProductById(prodId);
   let flag = false;
   user.wishList.forEach((e) => {
     if (e == prodId) {
@@ -209,7 +210,7 @@ async function addToWishList(userId, prodId) {
   if (!flag) {
     const updatedInfo = await userCollection.updateOne(
       { _id: userId },
-      { $push: { wishList: prodId } }
+      { $push: { wishList: {prodId:prodId, prodName: product.productName }} }
     );
     if (updatedInfo.modifiedCount === 0) {
       throw "Could not add to wishlist";

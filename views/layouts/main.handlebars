@@ -126,7 +126,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			  <div class="col-md-12">
 				 <div class="header-left">
 					 <div class="logo">
-						<a href="/"><img src="public/images/logo.png" alt=""/></a>
+						<a href="/"><img src="public/images/logo.png" width = "75" height = "50" alt=""/></a>
 					 </div>
 					 <div class="menu">
 						  <a class="toggleMenu" href="#"><img src="public/images/nav.png" alt="" /></a>
@@ -134,7 +134,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<li><a href="/">Home</a></li>
 						    	<li><a href="/products">Products</a></li>
 								{{#if user}}
-						    	<li><a href="/users/profile">Profile</a></li>
+						    	<li><a href="/users/{{user._id}}">Profile</a></li>
 								{{else}}
 						    	<li><a href="/users/login">Login</a></li>
 								{{/if}}
@@ -144,8 +144,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div class="clear"></div>
 							</ul>
 							<script type="text/javascript" src="/public/js/responsive-nav.js"></script>
-				    </div>							
-	    		    <div class="clear"></div>
+				     </div>							
+	    		 <div class="clear"></div>
 	    	    </div>
 	            <div class="header_right">
 	    		  <!-- start search-->
