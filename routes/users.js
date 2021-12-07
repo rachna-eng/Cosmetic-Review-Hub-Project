@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
-const reviewData = data.reviews;
+const productData = data.products;
 
 
 router.get("/login", async (req, res) => {
@@ -20,9 +20,23 @@ router.get("/logout", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const users = await userData.getUserById(req.params.id);
-    const reviews = await reviewData.getReviewsByField(null, req.params.id, null, null, null , null);
-    res.render("users/profile", { users: users, reviews: reviews, user: req.session.user });
+    const users = await userData.getUserById(req.session.user._id.toString());
+    const userReviews = await productData.getUserReviews(req.session.user._id.toString());
+    let wishlistProd = [];
+    if (users.wishList.length != null) {
+      users.wishList.forEach((e) => {
+        wishlistProd.push(e);
+      });
+    }
+
+    const products = await productData.findWishlistProd(wishlistProd);
+
+    res.render("users/profile", {
+      users: users,
+      products: products,
+      reviews: userReviews,
+      user: req.session.user,
+    });
   } catch (e) {
     res.status(404).render("landing/error", { error: e });
   }
@@ -129,8 +143,20 @@ router.post("/wishlist/:prodId", async (req, res) => {
   }
 });
 
+router.post("/wishlist/remove/:prodId", async (req, res) => {
+  try {
+    await userData.RemoveWishList(
+      req.session.user._id.toString(),
+      req.params.prodId
+    );
+    return res.json("Success");
+  } catch (e) {
+    return res.status(404).send({ error: e });
+  }
+});
 
-router.post("/private", async (req, res) => {
+//router.post("/profile", async (req, res) => {
+router.post("/private", async (req, res) => {  
   const {
     userName,
     userImage,
@@ -183,8 +209,6 @@ router.post("/private", async (req, res) => {
     res.status(400).send({ error: e.message });
   }
 });
-
-
 
 router.put("/private", async (req, res) => {
   const {
@@ -241,10 +265,13 @@ router.put("/private", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.post("/delete/:id", async (req, res) => {
   try {
-    const userId = await userData.remove(req.params.id);
-    res.json({ userId: userId, deleted: true });
+    const user = await userData.remove(req.params.id);
+    // res.json({ userId: userId, deleted: true });
+
+    req.session.destroy();
+    res.redirect("/login");
   } catch (e) {
     res.status(404).send({ error: e });
   }

@@ -204,6 +204,7 @@ async function addToWishList(userId, prodId) {
   user.wishList.forEach((e) => {
     if (e == prodId) {
       flag = true;
+     
     }
   });
   userId = ObjectId(userId);
@@ -218,6 +219,22 @@ async function addToWishList(userId, prodId) {
   }
 }
 
+async function RemoveWishList(userId, prodId) {
+  const userCollection = await users();
+  const user = await getUserById(userId);
+
+  userId = ObjectId(userId);
+  
+    const updatedInfo = await userCollection.updateOne(
+      { _id: userId },
+      { $pull: { wishList: prodId } }
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw "Could not remove wishlist";
+    }
+  
+}
+
 module.exports = {
   getUsers,
   getUserById,
@@ -226,4 +243,5 @@ module.exports = {
   remove,
   login,
   addToWishList,
+  RemoveWishList
 };

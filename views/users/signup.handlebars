@@ -5,33 +5,49 @@
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <br>
-                    <h3 class="text-centre">Create an Account</h3>
-                    <br>
-                    <br>
+                    <input
+                    id="imageUpload"
+                    name="imageUpload"
+                    accept="image/*"
+                    class="form-css"
+                    type="file"
+                    id="formFileMultiple"
+                    />
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">First Name</label><input type="text" id= "firstName" name= "firstName" class="form-control" placeholder="First Name" value= "{{post.firstName}}"></div>
-                    <div class="col-md-6"><label class="labels">Last Name</label><input type="text" id= "lastName" name= "lastName" class="form-control" placeholder="Last Name" value= "{{post.lastName}}"></div>
-                </div>
-                <div class="row mt-3"> 
-                    <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder="Enter Username" id= "username" name= "username" value= "{{post.username}}"></div>
-                    <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" placeholder="Enter Password" id= "password" name= "password"  autocomplete="off"></div>
-                    <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="Enter Email" id= "email" name= "email" value= "{{post.email}}"></div>
-                    <div id= "dropdown" class="col-md-12"><label class="labels">Makeup Level</label>
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <br>
+
+                            <h3 class="text-centre">Profile Settings</h3>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">First Name</label><input type="text" id= "firstName" name= "firstName" class="form-control" placeholder="First Name" value= "{{post.firstName}}"></div>
+                            <div class="col-md-6"><label class="labels">Last Name</label><input type="text" id= "lastName" name= "lastName" class="form-control" placeholder="Last Name" value= "{{post.lastName}}"></div>
+                        </div>
+                        <div class="row mt-3"> 
+                            <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder="Enter Username" id= "username" name= "username" value= "{{post.username}}"></div>
+                            <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" placeholder="Enter Password" id= "password" name= "password"  autocomplete="off"></div>
+                            <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="Enter Email" id= "email" name= "email" value= "{{post.email}}"></div>
+                            <div id= "dropdown" class="col-md-12"><label class="labels">Makeup Level</label>
+                                <br>
+                                <select name= "makeupLevel">
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Expert">Expert</option>
+                                </select>
+                            </div>
+                        </div>
                         <br>
-                        <select name= "makeupLevel">
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Expert">Expert</option>
-                        </select>
+                        <p class= "Error">{{error}}</p>  
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button" type="submit">Sign Up</button>
+                        </div>
+                        <br>
                     </div>
                 </div>
-                <br>
-                <p class= "Error">{{error}}</p>  
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit">Sign Up</button>
-                </div>
-                <br>
             </div>
         </div>
     </form> 
