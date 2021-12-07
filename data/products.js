@@ -17,6 +17,32 @@ async function getAllProducts() {
   return allProducts.map(validate.convertObjId);
 }
 
+findWishlistProd;
+
+async function findWishlistProd(wishlistProd) {
+  const prodCollection = await products();
+  let wishprod = [];
+
+  // wishlistProd.forEach(e => {
+  //   e = ObjectId(e);
+  // });
+  //sorting Products by Number of Likes
+  const allProducts = await prodCollection
+    .find({})
+    .sort({ likes: -1 })
+    .toArray();
+  let i = {};
+  allProducts.forEach((e) => {
+    i = e._id.toString();
+    if (wishlistProd.includes(i)) {
+      wishprod.push(e);
+    }
+  });
+
+  // Change all _id values to strings
+  return wishprod.map(validate.convertObjId);
+}
+
 async function progressbar(id) {
   let count5 = 0,
     count4 = 0,
@@ -324,18 +350,21 @@ async function addToReviewLikes(userId, revId) {
   let index = 0;
   prod.reviews.forEach((rev) => {
     cnt += 1;
-    rev.likes.forEach((e) => {
-      if (e == userId) {
-        flag = true;
-        index = cnt;
-      }
-    });
+    let id = rev._id.toString();
+    if (id == revId) {
+      index = cnt;
+      rev.likes.forEach((e) => {
+        if (e == userId) {
+          flag = true;
+        }
+      });
+    }
   });
 
   revId = ObjectId(revId);
   if (!flag) {
     prod.reviews[index].likes.push(userId);
-  
+
     let prodId = ObjectId(prod._id);
     const updatedInfo = await prodCollection.updateOne(
       { _id: prodId },
@@ -344,11 +373,8 @@ async function addToReviewLikes(userId, revId) {
     if (updatedInfo.modifiedCount === 0) {
       throw "Could not modify review";
     }
-   // return await getProductById(prodId.toString());
+    // return await getProductById(prodId.toString());
   }
-    
-   
-
 }
 
 //Product like
@@ -392,4 +418,5 @@ module.exports = {
   addToLikes,
   getReviewById,
   addToReviewLikes,
+  findWishlistProd,
 };

@@ -15,10 +15,4 @@
       },
     });
   });
-
-//   const form = $("#addlike");
-//   form.submit(function (event) {
-//     // let like = $("#like");
-//     //    event.preventDefault();
-//   });
  })(window.jQuery);

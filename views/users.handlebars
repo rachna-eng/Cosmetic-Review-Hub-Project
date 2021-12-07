@@ -1,6 +1,8 @@
 <div class="container rounded bg-white mt-5 mb-5">
    
     <div class="row">
+     
+        <div class="col1">
          <form id="form-user-edit" action="/users/profile" method="post">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src={{users.userImage}}><br><span class="font-weight-bold"><strong>{{users.firstName}}:</strong></span><span class="text-black-50">{{users.email}}</span><span> </span></div>
@@ -14,7 +16,17 @@
             class="form-css"
             type="file"
             id="formFileMultiple"
-          />
+          /><br>
+        <div class="mt-5 text-right">
+            <form id="form-user-delete" name="form-user-delete" method="post" action="/users/delete/{{user._id}}" >
+            <button class="btn btn-primary profile-button" type="submit">Delete Profile</button>
+            </form>
+        </div>
+        
+
+
+
+
           </div>
         {{!-- <a href="/">sign up here</a> --}}
         <div class="col-md-5 border-right">
@@ -23,6 +35,7 @@
                     <br>
 
                     <h3 class="text-centre">Profile Settings</h3>
+                    
                     <br>
                     <br>
                 </div>
@@ -46,30 +59,101 @@
                 <br>
                 <br>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
-               </form>
+            
                 <br>
+
             </div>
+            
            
         </div>
-    <br>
-    <br>
-    <br>
-    <br>
+    </form> 
+        
+</div>
+  {{#each Products}}
+<p>{{this._id}}</p>
+{{/each}}
+</div>
 
-    <br>
-    
-    <div class="col-md-3 border-right"> 
-        <div class="mt-5 text-center">
-            
-        </div>
+
+
+<div class="main">
+    <h3>wishlist:</h3>
+  <div class="shop_top">
+    <div class="container">
+      <div class="row shop_box-top">
+        {{#each products}}
+          <div class="col-md-3 shop_box" style="margin-top: 30px;">
+            <a
+              href="/products/{{this._id}}"
+            >
+              <img
+                src="{{this.productPicture}}"
+                class="img-responsive"
+                alt=""
+              />
+              <span class="new-box">
+                <span class="new-label">New</span>
+              </span>
+              <span class="sale-box">
+                <span class="sale-label">Sale!</span>
+              </span>
+              <div class="shop_desc">
+                <h3><a href="#">{{this.productName}}</a></h3>
+                <p>{{this.brand}}</p>
+                <span class="reducedfrom">$66.00</span>
+                <span class="actual">${{this.price}}</span><br />
+                <ul class="buttons">
+                  <li><a data-prod="{{this._id}}" class="remove" href="#">Remove</a></li>
+                  <li class="shop_btn"><a href="/users/wishlist/remove/{{this._id}}">Read More</a></li>
+                  <div class="clear"> </div>
+                </ul>
+              </div>
+            </a></div>
+        {{/each}}
+      </div>
     </div>
-</div>
-</form>
-
-<form id="form-user-delete" name="form-user-delete" method="post" action="/users/delete/{{user._id}}" >
-            <button class="btn btn-primary profile-button" type="submit">Delete Profile</button>
-            </form>
+  </div>
 </div>
 
-</div>
 <script src="/public/js/users.js"></script>
+<script>
+
+     /*$(document).on("click", ".remove" , function() {
+   // (function ($) {
+  //const a = $("#btn-whishlist");
+  //a.on("click", function (event) {
+       event.preventDefault();
+    alert(123);
+   
+    $.ajax({
+      type: "POST",
+      url: this.href,
+      data: {},
+      success: function (data) {
+        alert("Added to wishlist");
+      },
+      error: function (xhr, textStatus, error) {
+        alert("To save your product to wishlist, Login first");
+        window.location.href = "/login";
+      },
+    });
+  });
+ })(window.jQuery);*/
+   /*$(document).on("click", ".remove" , function() {
+       alert(1);
+        event.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: this.href,
+        data: {},
+        success: function (data) {
+            alert("Removed from wishlist");
+        },
+        error: function (xhr, textStatus, error) {
+            alert("To save your product to wishlist, Login first");
+            window.location.reload();
+        },
+        });
+    });*/
+
+</script>
