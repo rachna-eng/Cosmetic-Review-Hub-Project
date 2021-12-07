@@ -28,9 +28,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/private/:id", async (req, res) => {
-  const users = await userData.getUserById(req.params.id);
-  return res.render("users/private", {users: users, user: req.session.user }); 
+router.get("/private", async (req, res) => {
+  return res.render("users/private", { user: req.session.user }); 
 });
 
 
