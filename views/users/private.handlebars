@@ -1,5 +1,5 @@
 <div class="container rounded bg-white mt-5 mb-5">
-    <form action="/users/profile" method="post">
+    <form action="/users/private/:id" method="post">
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src={{users.userImage}}><br><span class="font-weight-bold"><strong>{{users.firstName}}</strong></span>:<br> <span class="text-black-50">{{users.email}}</span><span> </span></div>
@@ -36,6 +36,8 @@
                     <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
                 </div> --}}
                 <br>
+                <p>{{success}}</p>
+                <p>{{error}}</p>
                 <br>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                 <br>

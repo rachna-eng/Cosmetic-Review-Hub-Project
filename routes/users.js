@@ -28,8 +28,9 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/private", async (req, res) => {
-  return res.render("users/private", { user: req.session.user }); 
+router.get("/private/:id", async (req, res) => {
+  const users = await userData.getUserById(req.params.id);
+  return res.render("users/private", { users: users, user: req.session.user }); 
 });
 
 
@@ -130,7 +131,7 @@ router.post("/wishlist/:prodId", async (req, res) => {
 });
 
 
-router.post("/private", async (req, res) => {
+router.post("/private/:id", async (req, res) => {
   const {
     userName,
     userImage,
@@ -178,14 +179,14 @@ router.post("/private", async (req, res) => {
       makeupLevel
     );
     req.session.user = user;
-    res.redirect("/users");
+    res.render("users/private", { users: user, success: "Profile updated successfully", user: req.session.user });
   } catch (e) {
-    res.status(400).send({ error: e.message });
+    res.status(400).render("users/private", { users: user, error: e, user: req.session.user });
   }
 });
 
 
-
+/*
 router.put("/private", async (req, res) => {
   const {
     userName,
@@ -240,7 +241,7 @@ router.put("/private", async (req, res) => {
     res.status(404).send({ error: e });
   }
 });
-
+*/
 router.delete("/:id", async (req, res) => {
   try {
     const userId = await userData.remove(req.params.id);
