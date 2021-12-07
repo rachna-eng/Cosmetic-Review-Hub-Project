@@ -453,4 +453,5 @@ module.exports = {
   addToReviewLikes,
   findWishlistProd,
   getUserReviews,
+  searchProducts,
 };

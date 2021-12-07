@@ -27,7 +27,7 @@ const constructorMethod = (app) => {
   app.get("/", (req, res) => {
     return res.render("landing/landing", { user: req.session.user });
   });
-
+/*
   app.post("/uploadSingle", (req, res) => {
     uploadSingle(req, res, function (err) {
       if (err) {
@@ -41,7 +41,7 @@ const constructorMethod = (app) => {
   //   req.session.destroy();
   //   res.redirect("/");
   // });
-/*
+
   app.get("/logout", function (req, res) {
     if (!req.session.user) {
       res.header(
