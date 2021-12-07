@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const adminData = data.admin;
+const pendingData = require("../data/pending");
+
 
 router.get("/login", async (req, res) => {
   try {
-    res.render("adminlogin");
+    res.render("admin/adminlogin");
   } catch (e) {
     res.status(404).send({ error: e });
   }
@@ -28,16 +30,40 @@ router.post("/", async (req, res) => {
   //console.log(username, password);
   try {
     const admin = await adminData.login(username, password);
+    const pending = await pendingData.getAll();
       // if (user.admin) {
       //   res.render("admin", {user: user})
       //   return;
       // }
       //console.log("login success", admin)
-      res.render("admin", { user: req.session.user });
+      res.render("admin/admin", { user: req.session.user, pending: pending });
   } catch (e) {
 
     res.status(400).send({ error: e });
   }
+});
+
+router.post("/addProd", async (req, res) => {
+  const { productName,
+  productPicture,
+  productLinks,
+  brand,
+  price,
+  category
+  } = req.body
+  if (!productName) {
+    res.status(400).render("product/single", { error: "You must provide review title" });
+    return;
+  }
+  if (!productPicture) {
+    res.status(400).render("product/single",{ error: "You must provide review before adding" });
+    return;
+  }
+  if (!productLinks) {
+    res.status(400).render("product/single",{ error: "You must provide rating" });
+    return;
+  }
+
 });
 
 router.post("/delete", async (req, res) => {
@@ -52,14 +78,6 @@ router.post("/delete", async (req, res) => {
   }
 });
 
-router.get("/requests", async (req, res) =>{
-  try{
-    const reqProd = await adminData.getAllProdctsBystatus("pending");
-    res.json({reqProd})
-  }catch (e) {
-    res.status(404).send({ error: e });
-  }
-});
 
 router.get("/logout", async (req, res) => {
   req.session.destroy();

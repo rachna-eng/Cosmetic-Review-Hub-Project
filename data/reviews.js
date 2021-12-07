@@ -1,6 +1,6 @@
 //reviews
 const mongoCollections = require("../config/mongoCollections");
-const reviews = mongoCollections.reviews;
+//const reviews = mongoCollections.reviews;
 const usersData = require("../data/users");
 const validate = require("./validation");
 const { ObjectId } = require("mongodb");

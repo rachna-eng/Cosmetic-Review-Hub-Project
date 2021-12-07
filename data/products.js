@@ -32,8 +32,8 @@ async function createProduct(
   productLinks,
   brand,
   price,
-  category,
-  status = "pending",
+  category
+  //status = "pending",
 ) {
   if (!validate.validString(productName))
     throw "Product name must be a valid string.";
@@ -70,6 +70,8 @@ async function createProduct(
     status: status,
   };
 
+  
+
   const insertInfo = await prodCollection.insertOne(newProd);
   if (insertInfo.insertedCount === 0)
     throw "Could not add Product to database.";
@@ -77,13 +79,16 @@ async function createProduct(
 
   return await getProductById(id);
 }
+
+
+/*
 async function getProductByStatus(id){
   const pendingCollection = await products();
   const prod = await pendingCollection.find({id}).toArray();
 
   return await prod.name;
 }
-
+*/
 
 
 async function updateProduct(
@@ -94,8 +99,9 @@ async function updateProduct(
   brand,
   price,
   category,
-  status,
-) {
+)
+//status,
+{
   if (!validate.validString(id)) throw "Product id must be a valid string.";
   if (!validate.validString(productPicture))
     throw "Product picture path Invalid";
@@ -225,7 +231,7 @@ async function addToreviews(userId, prodId, title, reviewId, reviewBody, rating)
     const prod = await getProductById(prodId.toString());
     let overallRating = 0;
     prod.reviews.forEach((review) => {
-      overallRating = overallRating + review.rating;
+      overallRating = overallRating + parseInt(review.rating);
     });
     if (prod.reviews.length != 0)
       overallRating = overallRating / prod.reviews.length;
@@ -251,5 +257,5 @@ module.exports = {
   updateProduct,
   addToreviews,
   searchProducts,
-  getProductByStatus,
+  //getProductByStatus,
 };

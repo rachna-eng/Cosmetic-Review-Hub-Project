@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const productData = data.products;
-const reviewsData = data.reviews;
+const pendingData = require("../data/pending");
 
 router.get("/", async (req, res) => {
   try {
@@ -98,14 +98,14 @@ router.post("/add", async (req, res) => {
   }
 
   let success = "You're request has been submitted for review successfully!"
-/*
+
   try {
-    //send it to the admin page
+    const pending = await pendingData.createPending(productName, productBrand);
     res.render("product/add", {success: success});
   } catch (e) {
-    res.status(400).send({ error: e });
+    res.status(400).render("product/add", { error: e, prod: formBody});
   }
-  */
+  
 });
 
 router.put("/:id", async (req, res) => {

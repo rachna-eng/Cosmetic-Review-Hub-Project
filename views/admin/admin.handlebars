@@ -14,7 +14,11 @@
                                         <h3 class="text-centre">Adding Products Requests</h3>
                                         <br>
                                         <br>
-                                        <ul id="requestFrom"></ul>
+                                        {{#each pending}}
+                                                <h5>{{this.productName}}</h5>
+                                                <p>{{this.brand}}</p>
+                                                <p>{{this._id}}</p>
+                                        {{/each}}
                                         <br>
                                         <br>
                                 </div>
@@ -56,6 +60,9 @@
                                         <div class="col-md-12"><label class="labels">Category</label><input type="text"
                                                         class="form-control" placeholder="enter category"
                                                         name='category'></div>
+                                        <div class="col-md-12"><label class="labels">Pending Product Id (to be deleted)</label><input type="text"
+                                                        class="form-control" placeholder="enter category"
+                                                        name='pendingId'></div>
 
 
 
