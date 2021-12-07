@@ -21,5 +21,5 @@ module.exports = {
   reviews: getCollectionFn("Reviews"),
   users: getCollectionFn("Users"),
   admin: getCollectionFn("Admin"),
-  //commentReviews: getCollectionFn("commentReviews"),
+  commentReviews: getCollectionFn("commentReviews"),
 };

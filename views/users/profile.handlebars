@@ -19,7 +19,7 @@
                         <div class="button1 float-left">
                             <a href="/users/private/{{users._id}}"><input
                                 type="submit"
-                                name="Submit"
+                                name="profile"
                                 value="Edit"
                             /></a>
                         </div>
@@ -52,8 +52,17 @@
                         <p>{{this.reviewBody}}</p>
                     </div>
                 </div>
+                {{#each reviews}}
+                    <h5>{{reviews.title}}</h5>
+                    <p>{{reviews.reviewBody}}</p>
+                    <p><a href="products/{{productId}}">See more</a></p>
+                {{/each}}
+                <h4>Wishlist</h4>
+                {{#each user.wishlist}}
+                    <p><a href="products/{{this.prodId}}">{{this.prodName}}</a></p>
+                {{/each}}
             </div>
-            {{/each}}
+        </div>
         </div>
     </div>
 </div>
