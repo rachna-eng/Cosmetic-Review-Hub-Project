@@ -2,7 +2,6 @@ const mongoCollections = require("../config/mongoCollections");
 const products = mongoCollections.products;
 // const users = mongoCollections.users;
 const usersData = require("../data/users");
-const reviewsData = require("../data/reviews");
 const validate = require("./validation");
 const { ObjectId } = require("mongodb");
 
@@ -176,26 +175,41 @@ async function searchProducts(searchTerm) {
 //   return `${delprod._id}`;
 // }
 
-async function addToreviews( prodId, userId, reviewId) {
+async function addToreviews(userId, prodId, title, reviewId, reviewBody, rating) {
   const user = await usersData.getUserById(userId.toString());
-  const review = await reviewsData.getReviewById(reviewId.toString());
+  let date = new Date().toUTCString();
+  if (!title) {
+    throw "Add Review Title";
+  }
+  if (!reviewBody) {
+    throw "Review Cannot be empty";
+  }
+  if (!rating) {
+    throw "Add Rating";
+  }
   if (!user) {
     throw "Login Before you add review";
-  } 
+  } else {
+    if (!validate.validString(title)) throw "Title must be a valid string.";
+    if (!validate.validString(reviewBody))
+      throw "Reviews text must be a valid string.";
+    if (!validate.validnum(rating) || rating > 5 || rating < 0)
+      throw "rating should be between 0-5";
+    rating = parseFloat(rating);
     const prodCollection = await products();
     // const prod = await getProductById(prodId);
     const addreview = {
-      reviewId: reviewId,
       productId: prodId,
       userId: userId,
       userName: user.userName,
       userImage: user.userImage,
-      date: review.dateOfReview,
-      title: review.title,
-      reviewBody: review.reviewBody,
-      rating: review.rating,
-      likes: review.likes,
-      comments: review.comments,
+      date: date,
+      title: title,
+      reviewId: reviewId,
+      reviewBody: reviewBody,
+      rating: rating,
+      likes: 0,
+      comments: [],
     };
     prodId = ObjectId(prodId);
     const updatedInfo = await prodCollection.updateOne(
@@ -210,14 +224,11 @@ async function addToreviews( prodId, userId, reviewId) {
 
     const prod = await getProductById(prodId.toString());
     let overallRating = 0;
-    prod.reviews.forEach((prodrev) => {
-      overallRating = overallRating + parseInt(prodrev.rating);
-      
+    prod.reviews.forEach((review) => {
+      overallRating = overallRating + review.rating;
     });
-    
-    if (prod.reviews.length != 0){
+    if (prod.reviews.length != 0)
       overallRating = overallRating / prod.reviews.length;
-    }
 
     const ratingUpdateInfo = await prodCollection.updateOne(
       { _id: prodId },
@@ -228,6 +239,7 @@ async function addToreviews( prodId, userId, reviewId) {
 
     const product = await getProductById(prodId.toString());
     return product;
+  }
 }
 
 

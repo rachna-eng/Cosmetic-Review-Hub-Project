@@ -76,7 +76,7 @@
         rating: ratingInput.val().trim(),
       }),
       success: function (data) {
-        alert("Review added Successfully");
+        alert("Review added Suceessfully");
         window.location.reload();
       },
       error: function (xhr, textStatus, error) {
