@@ -1,4 +1,5 @@
 const express = require("express");
+const { ResultWithContext } = require("express-validator/src/chain");
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
@@ -130,8 +131,8 @@ router.post("/wishlist/:prodId", async (req, res) => {
   }
 });
 
-
-router.post("/private", async (req, res) => {
+router.post("/private/:id", async (req, res) => {
+  const users = await userData.getUserById(req.params.id);
   const {
     userName,
     userImage,
@@ -142,7 +143,7 @@ router.post("/private", async (req, res) => {
     makeupLevel,
   } = req.body;
   if (!userName) {
-    res.status(400).json({ error: "You must provide User name" });
+    res.status(400).render("users/private:id",{ users: users, error: "You must provide User name", user: req.session.user });
     return;
   }
   // if (!userImage) {
@@ -150,20 +151,20 @@ router.post("/private", async (req, res) => {
   //   return;
   // }
   if (!firstName) {
-    res.status(400).json({ error: "You must provide User's firstName" });
+    res.status(400).render("users/private",{ users: users, error: "You must provide User's firstName", user: req.session.user });
     return;
   }
   if (!lastName) {
-    res.status(400).json({ error: "You must provide User's lastName" });
+    res.status(400).render("users/private",{ users: users, error: "You must provide User's lastName", user: req.session.user });
     return;
   }
 
   if (!email) {
-    res.status(400).json({ error: "You must provide email Id" });
+    res.status(400).render("users/private",{ users: users, error: "You must provide email Id", user: req.session.user });
     return;
   }
   if (!makeupLevel) {
-    res.status(400).json({ error: "You must provide makeup level" });
+    res.status(400).render("users/private",{ users: users, error: "You must provide makeup level", user: req.session.user });
     return;
   }
 
@@ -179,14 +180,13 @@ router.post("/private", async (req, res) => {
       makeupLevel
     );
     req.session.user = user;
-    res.redirect("/users");
+    res.render("/users/private", {users: user, updated: "Updated Successfully", user: req.session.user});
   } catch (e) {
-    res.status(400).send({ error: e.message });
+    res.status(400).render("users/private",{ error: e.message });
   }
 });
 
-
-
+/*
 router.put("/private", async (req, res) => {
   const {
     userName,
@@ -241,7 +241,7 @@ router.put("/private", async (req, res) => {
     res.status(404).send({ error: e });
   }
 });
-
+*/
 router.delete("/:id", async (req, res) => {
   try {
     const userId = await userData.remove(req.params.id);
