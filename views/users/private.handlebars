@@ -24,9 +24,9 @@
                     <div class="col-md-6"><label class="labels">Last Name</label><input type="text" id= "lastName" name= "lastName" class="form-control" placeholder="Last Name" value= "{{users.lastName}}"></div>
                 </div>
                 <div class="row mt-3"> 
-                    <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder="Enter Username" id= "username" name= "username" value= "{{users.userName}}"></div>
-                    <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" placeholder="Enter Password" id= "password" name= "password"  autocomplete="off"></div>
-                    <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="Enter Email" id= "email" name= "email" value= "{{users.email}}"></div>
+                    <div class="col-md-12"><label class="labels">UserName</label><input type="text" name ="userName" class="form-control" placeholder="enter UserName" value={{users.userName}}></div>
+                    <div class="col-md-12"><label class="labels">Password</label><input type="text" name= "password" class="form-control" placeholder="enter New Password" value={{users.Password}}></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" name="email" class="form-control" placeholder="enter email id" value={{users.email}}></div>
                     <div id= "dropdown" class="col-md-12"><label class="labels">Makeup Level</label>
                         <br>
                         <select name= "makeupLevel">
@@ -35,7 +35,6 @@
                             <option value="Expert">Expert</option>
                         </select>
                     </div>
-                   
                 </div>
                 <br>
                 <br>

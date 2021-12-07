@@ -1,9 +1,8 @@
 const express = require("express");
-const { ResultWithContext } = require("express-validator/src/chain");
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
-const reviewData = data.reviews;
+const productData = data.products;
 
 
 router.get("/login", async (req, res) => {
@@ -22,8 +21,8 @@ router.get("/logout", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const users = await userData.getUserById(req.params.id);
-    const reviews = await reviewData.getReviewsByField(null, req.params.id, null, null, null , null);
-    res.render("users/profile", { users: users, reviews: reviews, user: req.session.user });
+    //const reviews = await productData.getRevByUserId(req.params.id);reviews: reviews,
+    res.render("users/profile", { users: users, user: req.session.user });
   } catch (e) {
     res.status(404).render("landing/error", { error: e });
   }
