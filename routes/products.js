@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
         }
       });
     }
-    res.render("single", {
+    res.render("product/single", {
       product: product,
       status: progressbar,
       user: req.session.user,
@@ -36,7 +36,10 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const productList = await productData.getAllProducts();
-    res.render("products", { products: productList, user: req.session.user });
+    res.render("product/products", {
+      products: productList,
+      user: req.session.user,
+    });
   } catch (e) {
     res.status(404).send({ error: e, user: req.session.user });
   }

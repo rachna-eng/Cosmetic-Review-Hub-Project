@@ -23,7 +23,7 @@ const constructorMethod = (app) => {
   app.use("/users", usersRoutes);
 
   app.get("/", (req, res) => {
-    return res.render("index", { user: req.session.user });
+    return res.render("landing/landing", { user: req.session.user });
   });
 
   app.post("/uploadSingle", (req, res) => {
@@ -63,7 +63,7 @@ const constructorMethod = (app) => {
   // });
 
   app.get("/login", (req, res) => {
-    return res.render("login");
+    return res.render("users/login");
   });
 
   app.post("/login", async (req, res) => {
@@ -79,14 +79,14 @@ const constructorMethod = (app) => {
     try {
       const user = await usersData.login(username, password);
       req.session.user = user;
-      res.render("index", { user: req.session.user });
+      res.render("landing/landing", { user: req.session.user });
     } catch (e) {
-      res.render("login", { user: req.session.user, error: e });
+      res.render("users/login", { user: req.session.user, error: e });
     }
   });
 
   app.get("/signup", (req, res) => {
-    return res.render("signup", { user: req.session.user });
+    return res.render("users/signup", { user: req.session.user });
   });
 
   app.use("*", (req, res) => {
