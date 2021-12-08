@@ -6,14 +6,16 @@
           <div class="single_image">
             <ul id="etalage">
               <li>
-                <a href="optionallink.html">
+                <a href="#">
                   <img
                     class="etalage_thumb_image"
                     src="{{product.productPicture}}"
+                    alt="Product"
                   />
                   <img
                     class="etalage_source_image"
                     src="{{product.productPicture}}"
+                    alt="Product"
                   />
                 </a>
               </li>
@@ -21,60 +23,72 @@
                 <img
                   class="etalage_thumb_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
                 <img
                   class="etalage_source_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
               </li>
               <li>
                 <img
                   class="etalage_thumb_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
                 <img
                   class="etalage_source_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
               </li>
               <li>
                 <img
                   class="etalage_thumb_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
                 <img
                   class="etalage_source_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
               </li>
               <li>
                 <img
                   class="etalage_thumb_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
                 <img
                   class="etalage_source_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
               </li>
               <li>
                 <img
                   class="etalage_thumb_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
                 <img
                   class="etalage_source_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
               </li>
               <li>
                 <img
                   class="etalage_thumb_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
                 <img
                   class="etalage_source_image"
                   src="{{product.productPicture}}"
+                  alt="Product"
                 />
               </li>
             </ul>
@@ -95,6 +109,7 @@
 
             <input type="hidden" id="userID" value="{{flag}}">
             <input type="hidden" id="revlikeID" value="{{flag1}}">
+            <input type ="hidden"  id="curUser" value="{{user._id}}">
             <div class="btn_form">
               <form>
                 <label for="box-btn">Like</label>
@@ -158,11 +173,22 @@
           <div class="box-info-product">
             <p class="price2">${{product.price}}</p>
             <ul class="prosuct-qty">
-              <span>Reviews:</span>
-              <select>
-                <option>{{product.reviews.length}}</option>
+              
+              
+                <label><strong><strong>Average rating: {{product.overallRating}}<span class="float-right"><i
+                        class="text-warning fa fa-star"
+                      ></i></span>
+                    <span class="float-right"><i
+                        class="text-warning fa fa-star"
+                      ></i></span>
+                    <span class="float-right"><i
+                        class="text-warning fa fa-star"
+                      ></i></span>
+                    <span class="float-right"><i class="rating"><strong
+                        >{{this.rating}} </strong></i>
+                      <i class="text-warning fa fa-star"></i></span></strong></strong></label>
                
-              </select>
+              
             </ul>
             <form>
             <button type="button" name="Submit" class="exclusive">
@@ -235,7 +261,7 @@
         <div class="container">
           <div id="reviews" class="review-section">
             <div class="d-flex align-items-center justify-content-between mb-4">
-              <h4 class="m-0">{{product.reviews.length}} Reviews</h4>
+              <h4 class="m-0">{{product.reviews.length}}Reviews</h4>
               <select
                 class="custom-select custom-select-sm border-0 shadow-sm ml-2 select2-hidden-accessible"
                 data-select2-id="1"
@@ -265,8 +291,19 @@
                       id="select2-qd66-container"
                       role="textbox"
                       aria-readonly="true"
-                      title="Most Relevant"
-                    >Most Relevant</span>
+                      title="Overall rating"
+                    ><strong>Average rating: {{product.overallRating}}    <span class="float-right"><i
+                        class="text-warning fa fa-star"
+                      ></i></span>
+                    <span class="float-right"><i
+                        class="text-warning fa fa-star"
+                      ></i></span>
+                    <span class="float-right"><i
+                        class="text-warning fa fa-star"
+                      ></i></span>
+                    <span class="float-right"><i class="rating"><strong
+                        >{{this.rating}} </strong></i>
+                      <i class="text-warning fa fa-star"></i></span></strong></span>
                     <span
                       class="select2-selection__arrow"
                       role="presentation"
@@ -405,12 +442,12 @@
 	        <div class="card-body review-blog">
 	            <div class="row">
         	      <div class="col-md-2">
-        	        <img src={{this.userImage}} class="img img-rounded img-fluid"/>
+        	        <img src={{this.userImage}} class="img img-rounded img-fluid" alt="Reviewing User"/>
         	        <p class="text-secondary text-center">{{this.date}}</p>
         	    </div>
         	    <div class="col-md-10">
         	        <p>
-        	            <a class="float-left review-username" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>{{this.userName}}</strong></a>
+        	            <a class="float-left review-username" href="#"><strong>{{this.userName}}</strong></a>
                       <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                       <span class="float-right"><i class="text-warning fa fa-star"></i></span>
         	            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
@@ -418,38 +455,38 @@
 
         	   </p>
         	       <div class="clearfix"></div>
-                    <p class="review-id" data-reviewid="{{this._id}}">{{this.title}}</p>
+                    <p class="review-id" data-userid="{{user.userName}}" data-reviewid="{{this._id}}">{{this.title}}</p>
                     <p>{{this.reviewBody}}</p>
         	        <p>
                       {{!-- Added class review-reply as an identifier for the review like button --}}
-        	            <a class="float-right btn btn-outline-primary ml-2 review-reply"> <i class="fa fa-reply"></i> Reply</a>
+        	            <a class="float-right btn btn-outline-primary ml-2 review-reply"> <i class="fa fa-reply"></i> Comment</a>
                       {{!-- Added class review-like as an identifier for the review like button --}}
         	            <a id = "revlike"  class="float-right btn text-white btn-danger review-like" data-selected="{{this.islike}}" > <i class="fa fa-heart"></i> <span>Like</span></a>
         	      {{!-- id = "revlike" --}}
                  </p>
         	    </div>
               <div class="reviews-members-footer">
-                                    <div class="total-like" href="#"><i class="glyphicon glyphicon-thumbs-up"></i>{{this.likes.length}}</div> 
+                                    <div class="total-like" href="#"><i class="glyphicon glyphicon-thumbs-up"></i> {{this.likes.length}}</div>
+                                    <div class="total-like" href="#"><i class="glyphicon glyphicon-comment"></i> {{this.Comments.length}}</div> 
                                     
               </div>
 	        </div>
             <!-- Start of Comments -->
            <div class="comment-space">
-
-            {{#each this.comments}}
+            <br>
+            {{#each this.Comments}}
 	        	<div class="card card-inner">
             	    <div class="card-body">
             	        <div class="row">
                     	    <div class="col-md-2">
-                    	        <img  src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                    	        <p  class="text-secondary text-center">15 Minutes Ago</p>
+                    	        <img  src="{{this.userImage}}" class="img img-rounded img-fluid" alt="Commenting User" />
+                    	        <p  class="text-secondary text-center">{{this.date}}</p>
                     	    </div>
                     	    <div class="col-md-10">
-                    	        <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong id="userName">Maniruzzaman Akash</strong></a></p>
-                    	        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    	        <p><a href="#"><strong id="userName">{{this.userName}}</strong></a></p>
+                    	        <p>{{this.commentBody}}</p>
                     	        <p>
-                    	            <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
-                    	           <a class="float-right btn text-white btn-danger review-like"> <i class="fa fa-heart"></i> <span>Like</span></a>
+                
                                   </p>
                     	    </div>
             	        </div>
@@ -465,13 +502,13 @@
                                 <div class="col-md-2">
                                   <!-- Todo Add server side script to show photo -->
                                     <img id="userImg" src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" alt="ProfilPic"/>
-                                    <p id="commentTime" class="text-secondary text-center post-time">15 Minutes Ago</p>
+                                    <p id="commentTime" class="text-secondary text-center post-time">Time</p>
                                 </div>
                                 <div class="col-md-10 comment-area">
                                   <!-- Todo Add server side script to show name of the logged in person -->
-                                    <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong id="userName">Name of the loggd in person</strong></a></p>
+                                    <p><a href="#"><strong id="userName">{{user.userName}}</strong></a></p>
                                     <p>
-                                        <textarea class="review-txt-area" rows="4" style="width:100%" placeholder="Write a comment"> </textarea>
+                                        <textarea autofocus id="cmntbody" class="review-txt-area" rows="4" style="width:100%" placeholder="Write a comment"></textarea>
                                     </p>
                                     <p>
                                         <a class="float-right btn text-white btn-primary add-comment"> </i> <span>ADD</span></a>
@@ -500,7 +537,7 @@
       <div class="row">
         <h4 class="m_11">Related Products</h4>
         <div class="col-md-4 product1">
-          <img src="/public/uploads/fe1.jpg" class="img-responsive" alt="" />
+          <img src="/public/uploads/fe1.jpg" class="img-responsive" alt="product" />
           <div class="shop_desc"><a href="/products">
             </a><h3><a href="/products"></a><a href="#">aliquam volutp</a></h3>
             <p>Lorem ipsum consectetuer adipiscing </p>
@@ -514,7 +551,7 @@
           </div>
         </div>
         <div class="col-md-4 product1">
-          <img src="/public/uploads/f1.jpg" class="img-responsive" alt="" />
+          <img src="/public/uploads/f1.jpg" class="img-responsive" alt="product" />
           <div class="shop_desc"><a href="/products">
             </a><h3><a href="/products"></a><a href="#">aliquam volutp</a></h3>
             <p>Lorem ipsum consectetuer adipiscing </p>
@@ -528,7 +565,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <img src="/public/uploads/fm1.jpg" class="img-responsive" alt="" />
+          <img src="/public/uploads/fm1.jpg" class="img-responsive" alt="product" />
           <div class="shop_desc"><a href="/products">
             </a><h3><a href="/products"></a><a href="#">aliquam volutp</a></h3>
             <p>Lorem ipsum consectetuer adipiscing </p>
@@ -656,6 +693,7 @@
             },
               error: function (jqXhr, textStatus, errorMessage) {
               alert("Login to like review");
+              window.location.href = "/login";
             }
         });
 
@@ -664,37 +702,53 @@
 
   <!-- Showing Comments Dialogue-->
   $(document).on("click", ".review-reply" , function() {
+    
+    if($("#curUser").val()){
+
         
-        var commentdialogue = $('#commentDialog').detach();
-        $(this).closest(".review-blog").find(".comment-space").append(commentdialogue);
-        $("#commentDialog").show();  
-        $("#commentTime").html("1 ");      
-          
+    var commentdialogue = $('#commentDialog').detach();
+    $(this).closest(".review-blog").find(".comment-space").append(commentdialogue);
+    $("#commentDialog").show();  
+    $("#commentTime").html("Now");
+    $("#userName").html("{{user.userName}}");
+    $("#userImg").attr('src','{{user.userImage}}');
+      
+      }
+      else{
+        alert("Login to Comment on Reviews");
+      window.location.href = "/login";
+    }     
   });
   <!-- End of Comments Dialogue-->
   
   <!-- Start of Add commnts -->
    $(document).on("click", ".add-comment" , function() {
 
-    comment = $(this).closest(".comment-area").find(".review-txt-area");
-    commentVal =comment.val();
-    comment.val("");
+      var ID = $(this).closest(".review-blog").find(".review-id");
+      var revid= ID.data("reviewid");
+      var commentUrl = "/products/reviews/comment/"+revid;	
+      comment = $(this).closest(".comment-area").find(".review-txt-area");
+      
+      commentVal =comment.val();
+     
+      comment.val("");
         if (commentVal.trim()) {
-      /*$.ajax({
+          
+      $.ajax({
        type: 'POST',
-       url: add url,
-       data: { myData: 'This is my data.' },
-       success: function (data) {
-        
-        $(this).closest(".review-blog").find(".comment-space").append("<div class='card card-inner'><div class='card-body'><div class='row'><div class='col-md-2'><img src='https://image.ibb.co/jw55Ex/def_face.jpg' class='img img-rounded img-fluid'/><p class='text-secondary text-center'>15 Minutes Ago</p></div><div class='col-md-10'><p><a href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>Maniruzzaman Akash</strong></a></p><p>"+commentVal+"</p><p><a class='float-right btn btn-outline-primary ml-2'>  <i class='fa fa-reply'></i> Reply</a><a class='float-right btn text-white btn-danger review-like'><i class='fa fa-heart'></i> <span>Like</span></a></p></div></div></div></div>");
+       url: commentUrl,
+       data: { commentBody: commentVal },
+       success: function (data) {        
+        //$(this).closest(".review-blog").find(".comment-space").append("<div class='card card-inner'><div class='card-body'><div class='row'><div class='col-md-2'><img src='https://image.ibb.co/jw55Ex/def_face.jpg' class='img img-rounded img-fluid'/><p class='text-secondary text-center'>15 Minutes Ago</p></div><div class='col-md-10'><p><a href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>Maniruzzaman Akash</strong></a></p><p>"+commentVal+"</p><p><a class='float-right btn btn-outline-primary ml-2'>  <i class='fa fa-reply'></i> Reply</a><a class='float-right btn text-white btn-danger review-like'><i class='fa fa-heart'></i> <span>Like</span></a></p></div></div></div></div>");
         $("#commentDialog").hide();  
+        window.location.reload();
       },
         error: function (jqXhr, textStatus, errorMessage) {
           alert(errorMessage);
       }
-    });*/
-      $(this).closest(".review-blog").find(".comment-space").append("<div class='card card-inner'><div class='card-body'><div class='row'><div class='col-md-2'><img src='https://image.ibb.co/jw55Ex/def_face.jpg' class='img img-rounded img-fluid'/><p class='text-secondary text-center'>15 Minutes Ago</p></div><div class='col-md-10'><p><a href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>Maniruzzaman Akash</strong></a></p><p>"+commentVal+"</p><p><a class='float-right btn btn-outline-primary ml-2'>  <i class='fa fa-reply'></i> Reply</a><a class='float-right btn text-white btn-danger review-like'><i class='fa fa-heart'></i> <span>Like</span></a></p></div></div></div></div>");
-      $("#commentDialog").hide();   
+    });
+    //  $(this).closest(".review-blog").find(".comment-space").append("<div class='card card-inner'><div class='card-body'><div class='row'><div class='col-md-2'><img src='https://image.ibb.co/jw55Ex/def_face.jpg' class='img img-rounded img-fluid'/><p class='text-secondary text-center'>15 Minutes Ago</p></div><div class='col-md-10'><p><a href='https://maniruzzaman-akash.blogspot.com/p/contact.html'><strong>Maniruzzaman Akash</strong></a></p><p>"+commentVal+"</p><p><a class='float-right btn btn-outline-primary ml-2'>  <i class='fa fa-reply'></i> Reply</a><a class='float-right btn text-white btn-danger review-like'><i class='fa fa-heart'></i> <span>Like</span></a></p></div></div></div></div>");
+     $("#commentDialog").hide();   
     }
     else{
       alert("Please Enter valid comment");
@@ -731,13 +785,14 @@ $(".review-like").each(function(){
   });
 //End of liked review on page load
 
+ 
+
   
-  /*for(){
-    $(".review-like").find('span').text("Liked");
-    $(".review-like").removeClass("btn-danger").addClass("btn-dark");  
-  }*/
 
 
 }); 
+
+
+
 </script>
 

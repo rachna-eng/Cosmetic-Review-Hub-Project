@@ -5,6 +5,9 @@ const userData = data.users;
 const productData = data.products;
 
 router.get("/", async (req, res) => {
+  if(req.session.user == null) {
+    return res.redirect("/login?error=Please login to continue");
+  }
   try {
     const users = await userData.getUserById(req.session.user._id.toString());
    const userReviews = await productData.getUserReviews(req.session.user._id.toString());
@@ -21,7 +24,7 @@ router.get("/", async (req, res) => {
       users: users,
       products: products,
       userReviews: userReviews,
-      user: req.session.user,
+      user: req.session.user
     });
   } catch (e) {
     res.status(404).send({ error: e });
@@ -66,10 +69,10 @@ router.post("/profile", async (req, res) => {
     res.status(400).json({ error: "You must provide User name" });
     return;
   }
-  // if (!userImage) {
-  //   res.status(400).json({ error: "You must provide User picture" });
-  //   return;
-  // }
+  if (!userImage) {
+    res.status(400).json({ error: "You must provide User picture" });
+    return;
+  }
   if (!firstName) {
     res.status(400).json({ error: "You must provide User's firstName" });
     return;
@@ -86,6 +89,9 @@ router.post("/profile", async (req, res) => {
   if (!makeupLevel) {
     res.status(400).json({ error: "You must provide makeup level" });
     return;
+  }
+  if(req.session.user.userName == userName && req.session.user.userImage==userImage && req.session.user.firstName == firstName && req.session.user.lastName==lastName && req.session.user.email==email && req.session.user.makeupLevel==makeupLevel){
+    res.status(400).json({ error: "Data is Up-to-date"});
   }
 
   try {

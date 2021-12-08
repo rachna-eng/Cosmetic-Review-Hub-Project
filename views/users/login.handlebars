@@ -1,4 +1,5 @@
 <div class="main">
+  
   <div class="shop_top">
     <div class="container">
       <div class="col-md-6">
@@ -28,7 +29,7 @@
             <form action="/login" method="post" name="login" id="login-form">
               <fieldset class="input">
                 <p id="login-form-username">
-                  <label for="modlgn_username">Email</label>
+                  <label for="modlgn_username">UserName</label>
                   <input
                     id="modlgn_username"
                     type="text"
@@ -50,7 +51,12 @@
                   />
                 </p>
                 <div class="remember">
+
+                  <p id="err" class="err"> {{#if error}}
+                      {{error}}
+                    {{/if}}</p>
                   <p id="login-form-remember">
+                    
                     <label for="modlgn_remember"><a href="#">Forget Your
                         Password ?
                       </a></label>
